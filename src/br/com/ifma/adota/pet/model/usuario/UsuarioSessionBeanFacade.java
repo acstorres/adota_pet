@@ -5,6 +5,7 @@ import javax.persistence.Query;
 
 import br.com.ifma.adota.pet.infraestrutura.GenericsSessionBeanFacadeImpl;
 
+
 /**
  * Session Bean implementation class UsuarioSessionBeanFacade
  */
