@@ -1,0 +1,10 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div align="center">
+		<label style="font-size:10px; color:#696969"
+			value="2019© Copyright" />
+		<toolbarbutton style="font-size:10px; color:#696969; font-family: Futura Light !important;"
+			label="Sistemas de Informação - Instituto Federal do Maranhão"
+			onClick='Executions.getCurrent().sendRedirect("https://portal.ifma.edu.br/inicio/")' />
+	</div>
+</zk>

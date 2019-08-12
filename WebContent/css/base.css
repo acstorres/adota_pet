@@ -1,0 +1,575 @@
+@charset "UTF-8";
+
+/* Estilos da nova interface */
+/* Estilos ZK */
+body {
+	padding: 0px;
+	height: 100%;
+	min-height: 100%;
+}
+
+/* .z-toolbarbutton-content{
+   color: #1a4444;
+	font-weight: bold;
+	
+} */
+.z-toolbarbutton-content:hover, .custom-footer {
+	background: none !important;
+}
+
+.z-window {
+	padding: 0px;
+}
+
+.z-window-content {
+	padding: 0px;
+}
+
+.z-menubar, .z.menubar-horizontal {
+	background: #005551; ! important;
+	border-top: 1px solid #D1D1D1;
+	border-bottom: 1px solid #D1D1D1;
+	padding: 4px;
+	color: #fff !important;
+	font-family: "Futura Light" !important;
+}
+
+/* .z-menubar-horizontal li {
+	margin: 4px;
+} */
+.z-menu-text, .z-menuitem-text, .z-center-body {
+	font-size: 16px !important;
+	color: #fff !important;
+	font-family: "Futura Light" !important;
+}
+
+.z-center-body {
+	padding: 0px !important;
+}
+
+.z-textbox:hover, .z-textbox-selected, .z-intbox, .z-intbox:focus {
+	border-color: #77b2b2 !important;
+	font-family: Futura Light;
+}
+
+.z-textbox:focus {
+	border-color: #77b2b2 !important;
+}
+
+.z-menu-content, .z-menuitem-content {
+	background: none;
+	color: #fff !important;
+}
+
+.z-menu-content:hover, .z-menuitem-content:hover {
+	background: #F45830 !important;
+}
+
+.z-menu-selected>.z-menu-content, .z-menu-content:hover,
+	.z-menuitem-content:hover, .z-menu-content:focus, .z-menuitem-content:focus,
+	.z-menu-hover>.z-menu-content, .z-menuitem-hover>.z-menuitem-content,
+	.z-menu-content:active, .z-menuitem-content:active {
+	color: #fff !important;
+	background-color: #F45830 !important;
+}
+
+/* .z-menu-item {
+	text-align: right !important;
+} */
+.z-panel {
+	margin: 15px;
+	background: #EDEDED;
+	border: 1px solid #D1D1D1;
+}
+
+.z-grid-header table, .z-grid-header, .z-column {
+	background-color: #F45830 !important;
+	border-bottom: 0px solid #F45830;
+}
+
+.z-panel-header {
+	font-size: 20px;
+	font-weight: bold;
+	padding: 10px;
+}
+
+.z-panel-icon {
+	padding: 0px;
+}
+
+.z-panelchildren {
+	padding: 15px;
+}
+
+/* .z-grid-header, .z-grid-body, .z-grid-footer, .z-grid-header table,
+	.z-grid-body table {
+	width: 70% !important;
+} */
+
+/* .z-north, .z-south, .z-west, .z-center{
+	width: 100% !important;
+	border: none;
+	background: transparent;
+} */
+.z-notification-content {
+	min-height: 0;
+	vertical-align: middle;
+}
+
+.z-tab-text {
+	font-weight: bold;
+}
+
+.z-tab-selected {
+	border-bottom: 2px solid #F45830;
+}
+
+.z-tab-selected .z-tab-text {
+	color: #F45830;
+}
+
+.z-tab-selected .z-tab-text:hover {
+	color: #77b2b2;
+}
+
+.z-tab-image {
+	vertical-align: middle;
+	margin-right: 4px;
+	width: auto;
+	height: auto;
+}
+
+.z-column {
+	background: #F45830;
+	border-left: 1px solid #d3d3d3;
+	border-bottom: 1px solid #F45830;
+	font-size: 12px;
+}
+
+.z-listheader {
+	background: #F45830;
+	border-left: 1px solid #d3d3d3;
+	border-bottom: 1px solid #d3d3d3;
+	font-size: 12px;
+}
+
+.z-button {
+	background-color: #F45830;
+	font-size: 12px;
+	padding: 6px 10px;
+	font-family: "Futura Book";
+}
+
+.z-button:hover {
+	background-color: #77b2b2;
+}
+
+.z-button:active {
+	background-color: #F45830;
+}
+
+.z-button:focus {
+	background-color: #F45830;
+}
+
+
+.button2 {
+	background-color: #333333;
+	font-size: 12px;
+	padding: 6px 10px;
+	font-family: "Futura Book";
+}
+
+.button2:hover {
+	background-color: #77b2b2;
+}
+
+.button2:active {
+	background-color: #00B7B1;
+}
+
+.button2:focus {
+	background-color: #00B7B1;
+}
+
+.z-row:hover>.z-row-inner, .z-row:hover>.z-cell {
+	background: #f3f3f3;
+}
+
+.z-column-content, .z-row-content, .z-group-content,
+	.z-groupfoot-content, .z-footer-content {
+	font-size: 12px !important;
+	/* padding: 10px 14px !important; */
+}
+
+.z-listitem:hover>.z-listcell {
+	background: #f3f3f3;
+}
+
+.z-tabpanel {
+	padding: 10px;
+}
+
+.z-combobox-popup, .z-bandbox-popup, .z-datebox-popup, .z-timebox-popup
+	{
+	border: 1px solid #77b2b2;
+}
+
+.z-combobox-input:focus {
+	border: 1px solid #77b2b2 !important;
+}
+
+.z-combobox-input:focus {
+	border-left: 1px solid #77b2b2 !important;
+}
+
+.z-combobox .z-combobox-readonly, .z-combobox-button:hover,
+	.z-combobox-open .z-combobox-button {
+	border-color: #77b2b2 !important;
+	font-size: 10px;
+	font-family: Futura Light;
+}
+
+.z-textbox, .z-intbox, .z-combobox-input[readonly], .z-comboitem,
+	.z-paging-text, .z-paging-info, .z-grid-body .z-grid-emptybody td {
+	font-size: 10px;
+	font-family: Futura Light;
+}
+
+.z-grid {
+	border: 0px solid #d9d9d9;
+}
+
+.z-menubar-horizontal li {
+	margin: 2px 2px !important;
+}
+
+.z-combobox-button-selected {
+	color: #77b2b2 !important;
+}
+
+.z-grid-header-border {
+	border-bottom: 0px solid #F45830;
+}
+
+/* Estilos criados */
+.noHover {
+	pointer-events: none !important;
+	background-color: none !important;
+	color: none;
+}
+
+.semCor {
+	background-color: none !important;
+	color: #0000;
+}
+
+.left {
+	position: absolute !important;
+	left: 1;
+}
+
+.z-label, .z-radio-content, .z-checkbox-content, .z-loading {
+	font-size: 12px;
+	font-family: "Futura Light" !important;
+}
+
+.z-menubar-horizontal li, .z-menupopup, .z-menupopup-shadow .z-menupopup-open
+	{
+	margin: 6px 6px;
+	float: left !important;
+}
+
+.z-combobox-input:focus, .z-combobox-input:hover {
+	border-left: #F45830 !important;
+	border-left-color: #F45830 !important;
+	border-left-style: solid;
+	border-left-width: 1px;
+}
+
+.z-combobox-input {
+	font-size: 11px;
+	font-family: "Futura Light" !important;
+}
+
+.z-north-body {
+	color: #fff;
+	padding: 0px !important;
+}
+
+.z-combobox-button {
+	color: #F45830 !important;
+}
+
+.custom-window {
+	padding: 15px;
+}
+
+.custom-title {
+	font-size: 14px;
+	font-weight: bold;
+	color: #F45830;
+	font-family: "Futura Light" !important;
+}
+
+.custom-label-login-1 {
+	font-family: "Futura Light" !important;
+	font-size: 60px;
+	font-weight: bold;
+	color: #F45830;
+}
+
+.custom-label-login-2 {
+	font-family: "Futura Light" !important;
+	font-size: 20px;
+	font-weight: bold;
+	color: #77b2b2;
+}
+
+.custom-label-1 {
+	font-size: 20px;
+	font-weight: bold;
+	font-family: "Futura Light" !important;
+}
+
+.custom-panel {
+	margin-top: 2%;
+	box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.custom-footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 10px;
+	background-color: #EDEDED;
+	text-align: center;
+}
+
+.button-basic {
+	color: #000000;
+	background-color: #F0F0F0;
+	font-size: 12px;
+	font-family: "Futura Light" !important;
+}
+
+.button-basic:hover, .button-basic:focus, .button-basic:active {
+	color: #333;
+	text-decoration: none;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.z-button:focus {
+	border-color: #898b8e;
+}
+
+.button-default {
+	background-color: #FFFFFF;
+}
+
+.button-primary {
+	color: #fff;
+	background-color: #F45830;
+	border-color: #F45830;
+	font-size: 12px;
+	font-family: "Futura Light" !important;
+}
+
+.button-primary:hover, .button-primary:focus, .button-primary:active {
+	color: #fff;
+	text-decoration: none;
+	background-color: #F45830;
+	border-color: #F45830;
+	font-size: 12px;
+	font-family: "Futura Light" !important;
+}
+
+.button-success {
+	background-color: #5CB85C;
+}
+
+.button-warning {
+	background-color: #F0AD4E;
+}
+
+.button-danger, .button-danger:active, .button-danger:focus {
+	background-color: #a3a3a3;
+	border-color: #a3a3a3;
+}
+
+.button-danger:hover {
+	background-color: #f29d9b;
+}
+
+.z-listbox-emptybody-content {
+	font-size: 12px;
+	font-style: italic !important;
+	font-family: "Futura Light" !important;
+}
+
+.divx {
+	padding-left: 7px;
+	padding-top: 10px;
+	padding-right: 3px;
+}
+
+.z-listitem-selected>.z-listcell {
+	background-color: #d3d3d3 !important;
+
+	/* #8bc9c9  #a2d6d6 #a9d6d6*/
+}
+
+.z-row .z-row-inner {
+	border-top: 0px !important;
+}
+
+.z-datebox-input:focus, .z-datebox-icon, .z-icon-calendar,
+	.z-datebox-button:hover, .z-datebox-button:active, .z-datebox-button {
+	border-color: #F45830 !important;
+}
+
+.z-calendar-cell:hover {
+	background-color: #d3d3d3 !important;
+}
+
+.z-calendar-selected {
+	background-color: #a9d6d6 !important;
+}
+
+.z-listcell-content {
+	line-height: 16px !important;
+	padding-top: 6px;
+}
+
+/* .z-checkbox-default-input[checkbox]:checked, .z-checkbox-input[checkbox]:checked
+	{
+	background-color: #F45830 !important;
+	color: #fff;
+} */
+.bordas {
+	-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 6px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	border-top: 0px;
+	border-bottom: 0px;
+}
+
+.z-notification, .z-notification-warning, .z-notification-open {
+	font-size: 11px;
+	font-family: "Futura Light" !important;
+}
+
+.buttonRelatorio {
+	font-size: 11px;
+	font-weight: bold;
+	margin-right: 5px;
+	background-color: #EDEDED;
+	color: #6d6d6d
+}
+
+.buttonRelatorio:hover, .buttonRelatorio:focus, .buttonRelatorio:active
+	{
+	background-color: #77b2b2;
+	color: #FFFFFF
+}
+
+.z-checkbox-switch-on>.z-checkbox-mold, .z-checkbox-mold:focus {
+	background-color: #F45830;
+	box-shadow: 0 0 0 2px #a3a3a3 !important;
+}
+
+.z-checkbox-switch-off>.z-checkbox-mold {
+	background-color: #a3a3a3;
+}
+
+.botaoAleatorio {
+	font-size: 11px;
+	margin-left: 20px;
+	font-size: 11px;
+	background-color: #EDEDED;
+	color: #6d6d6d;
+	font-family: "Futura Light" !important;
+}
+
+.z-listbox-header-border {
+	border-bottom: 0px solid #0064ed !important;
+}
+
+.z-icon-eye, .z-icon-eraser, .z-icon-check-circle {
+	margin-right: 1px;
+	padding-bottom: 2px;
+}
+
+.fa-chart-line {
+	margin-right: 4px;
+}
+
+.z-toolbarbutton-content {
+	padding: 4px 0px !important;
+	background: transparent;
+}
+
+.z-toolbarbutton:focus, .z-toolbarbutton:hover {
+	background: transparent !important;
+}
+
+.z-toolbarbutton-content:hover, .z-toolbarbutton-content:focus {
+	color: #F45830 !important;
+	background: transparent !important;
+}
+
+.divText {
+	margin-left: 200px;
+	margin-right: 500px;
+	margin-top: 0px;
+	margin-bottom: 30px;
+}
+
+.texto {
+	font-family: Futura Book;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Futura Light";
+	src:
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.eot");
+	src:
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.eot?#iefix")
+		format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.woff2")
+		format("woff2"),
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.woff")
+		format("woff"),
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.ttf")
+		format("truetype"),
+		url("//db.onlinewebfonts.com/t/2167e76f00e569cc11b3665679996380.svg#Futura Light")
+		format("svg");
+}
+
+@font-face {
+	font-family: "Futura Book";
+	src:
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.eot");
+	src:
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.eot?#iefix")
+		format("embedded-opentype"),
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.woff2")
+		format("woff2"),
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.woff")
+		format("woff"),
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.ttf")
+		format("truetype"),
+		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.svg#Futura Book")
+		format("svg");
+}

@@ -1,0 +1,71 @@
+<?page title="AdotaPet" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"?>
+<?link rel="stylesheet" type="text/css" href="css/base.css"?>
+<?link rel="stylesheet" type="text/css" href="https://db.onlinewebfonts.com/c/2167e76f00e569cc11b3665679996380?family=Futura+Light" ?>
+
+<zk>
+	<script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" />
+	<custom-attributes org.zkoss.zul.image.preload="true" />
+
+	<borderlayout style="padding-top: 0px" hflex="1" vflex="1"
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.IndexVM')">
+
+		<north vflex="min" border="none"
+			style="background-color: #005551;">
+			<div style="display: inline-block;">
+				<hlayout>
+
+					<div
+						style="text-align: right; margin-top:3px;  margin-left:90px; margin-bottom:5px; padding-bottom:3px; ">
+						<div sclass="left">
+							<image height="65px" width="175px"
+								onClick="@command('irPara', pagina='menuInicial')"
+								src="/images/logo.png" />
+
+						</div>
+						<div>
+
+							<menubar autodrop="true"
+								style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
+
+								<menuitem label="Início"
+									onClick="@command('irPara', pagina='inicio')" />
+								<menu label="Cadastro">
+									<menupopup>
+										<menuitem label="multa"
+											onClick="@command('irPara', pagina='teste')" />
+										<menuitem label="tipo de multa"
+											onClick="@command('irPara', pagina='teste')" />
+									</menupopup>
+								</menu>
+
+								<menuitem label="Teste"
+									onClick="@command('irPara', pagina='teste')">
+								</menuitem>
+
+							</menubar>
+
+						</div>
+
+
+					</div>
+
+
+
+
+				</hlayout>
+
+
+			</div>
+		</north>
+
+		<center id="mainContent" autoscroll="true"
+			style="background-color: #00B7B1;">
+			<include src="@load(vm.conteudo)" />
+		</center>
+
+		<south border="none">
+			<include src="footer.zul" />
+		</south>
+	</borderlayout>
+</zk>
