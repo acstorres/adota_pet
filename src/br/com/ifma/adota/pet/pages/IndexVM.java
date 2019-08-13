@@ -13,6 +13,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 
+import br.com.ifma.adota.pet.model.adocao.LancamentoAdocaoSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.usuario.Usuario;
 import br.com.ifma.adota.pet.model.usuario.UsuarioSessionBeanFacadeLocal;
 
@@ -21,6 +22,7 @@ public class IndexVM {
 	private String login, senha, conteudo = "default.zul";
 
 	private UsuarioSessionBeanFacadeLocal usuarioSessionBeanFacadeLocal;
+	private LancamentoAdocaoSessionBeanFacadeLocal lancamentoAdocaoSessionBeanFacadeLocal;
 
 	public IndexVM() {
 		try {
