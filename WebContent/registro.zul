@@ -5,81 +5,99 @@
 
 		<div style=" background: #5D5A5A;">
 
-			<image height="200px" width="100%"
+			<image height="180px" width="100%"
 				src="/images/espiral.png" />
 
-			<hbox width="1000px;" style="margin-left: 200px;">
-				<vbox width="350px;">
+			<hbox width="1000px;" height="300px;"
+				style="margin-left: 200px; padding-bottom: 70px;">
+
+
+
+				<vbox width="200px;" style="margin-left: 100px; padding-top: 20px;"
+					align="left">
 
 
 					<label value="Eu sou"
-						style="font-size:26px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;" />
+						style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
 
 					<radio onClick="@command('pf')"
-					label="Pessoa Física" 
-					style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;"/>
-					<radio  onClick="@command('pj')"
-					label="Pessoa Jurídica" 
-					style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;"/>
+						checked="@bind(vm.pf)" label="Pessoa Física"
+						style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px;" />
+					<radio onClick="@command('pj')"
+						checked="@bind(vm.pj)" label="Pessoa Jurídica"
+						style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px;" />
 				</vbox>
 
-
-				<vbox style="margin-left: 40px;" id="pf" visible="false">
-
-					<textbox placeholder="Nome*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.nome)" width="500px" maxlength="100"
-						height="27px" />
-
-					<textbox placeholder="CPF*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.cpf)" width="500px" maxlength="100"
-						height="27px" />
-
-
-					<datebox placeholder="Data de nascimento*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.dataNascimento)" width="200px" maxlength="100"
-						height="27px" />
-
-
-					<button label="Enviar"
-						style="margin-top: 5px; margin-left: 420px; padding: 3px;"
-						height="27px" width="80px;" onClick="@command('enviar')">
-					</button>
+				<div id="divPf" visible="false">
 
 
 
-				</vbox>
-				
-				
-				<vbox style="margin-left: 40px;" id="pj" visible="false">
+					<vbox style="margin-left: 100px;" align="right">
 
-					<textbox placeholder="CNPJ*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.cnpj)" width="500px" maxlength="100"
-						height="27px" />
+						<datebox placeholder="Data de nascimento*"
+							style="font-size: 16px; margin-bottom: 8px;"
+							value="@bind(vm.cliente.dataNascimento)" width="200px"
+							maxlength="100" height="27px" />
+						<textbox placeholder="CPF*"
+							style="font-size: 16px;" value="@bind(vm.cliente.cpf)"
+							width="300px" maxlength="100" height="27px" />
 
-					<textbox placeholder="Razão Social*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.razaoSocial)" width="500px" maxlength="100"
-						height="27px" />
-					<textbox placeholder="Razão Social*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.nomeFantasia)" width="500px" maxlength="100"
-						height="27px" />
+						<textbox placeholder="Nome*"
+							style="font-size: 16px;" value="@bind(vm.cliente.nome)"
+							width="300px" maxlength="100" height="27px" />
 
 
+						<textbox placeholder="Login*"
+							style="font-size: 16px;" value="@bind(vm.usuario.login)"
+							width="300px" maxlength="100" height="27px" />
 
-					<button label="Enviar"
-						style="margin-top: 5px; margin-left: 420px; padding: 3px;"
-						height="27px" width="80px;" onClick="@command('enviar')">
-					</button>
+						<textbox placeholder="Senha*" type="password"
+							style="font-size: 16px;" value="@bind(vm.usuario.senha)"
+							width="300px" maxlength="100" height="27px" />
+
+						<button label="Enviar"
+							style="margin-top: 5px; padding: 3px;" height="27px"
+							width="80px;" onClick="@command('enviar')">
+						</button>
 
 
 
-				</vbox>
+					</vbox>
+				</div>
 
+				<div id="divPj" visible="false">
+
+
+
+					<vbox  style="margin-left: 100px;" align="right">
+
+						<textbox placeholder="CNPJ*"
+							style="font-size: 16px;" value="@bind(vm.cliente.cnpj)"
+							width="300px" maxlength="100" height="27px" />
+
+						<textbox placeholder="Razão Social*"
+							style="font-size: 16px;" value="@bind(vm.cliente.razaoSocial)"
+							width="300px" maxlength="100" height="27px" />
+						<textbox placeholder="Nome Fantasia*"
+							style="font-size: 16px;" value="@bind(vm.cliente.nomeFantasia)"
+							width="300px" maxlength="100" height="27px" />
+						<textbox placeholder="Login*"
+							style="font-size: 16px;" value="@bind(vm.usuario.login)"
+							width="300px" maxlength="100" height="27px" />
+
+						<textbox placeholder="Senha*" type="password"
+							style="font-size: 16px;" value="@bind(vm.usuario.senha)"
+							width="300px" maxlength="100" height="27px" />
+
+						<button label="Enviar"
+							style="margin-top: 5px; padding: 3px;"
+							height="27px" width="80px;" onClick="@command('enviar')">
+						</button>
+
+
+
+					</vbox>
+				</div>
 			</hbox>
 		</div>
 

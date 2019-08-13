@@ -10,6 +10,7 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Vbox;
 
 import br.com.ifma.adota.pet.model.cliente.Cliente;
@@ -21,10 +22,10 @@ public class RegistroVM {
 	private Usuario usuario;
 	private Cliente cliente;
 
-	private boolean doador, pf = false, pj = false;
+	private boolean doador, pf, pj;
 	
 	@Wire
-	private Vbox vboxPf = new Vbox(), vboxPj = new Vbox();
+	private Div divPf = new Div(), divPj = new Div();
 
 	public RegistroVM() {
 
@@ -44,28 +45,29 @@ public class RegistroVM {
 
 	
 	@Command
-	@NotifyChange({"vboxPf", "vboxPj"})
+	@NotifyChange({"divPj", "divPf", "pj"})
 	public void pf() {
 		pj = false;
-		pf = true;
-		vboxPj.setVisible(false);
-		vboxPf.setVisible(true);
-		BindUtils.postNotifyChange(null, null, this, "vboxPf");
-		BindUtils.postNotifyChange(null, null, this, "vboxPj");
+		
+		divPj.setVisible(false);
+		divPf.setVisible(true);
+		BindUtils.postNotifyChange(null, null, this, "pj");
+		BindUtils.postNotifyChange(null, null, this, "divPf");
+		BindUtils.postNotifyChange(null, null, this, "divPj");
 		
 	}
 	
 	@Command
-	@NotifyChange({"vboxPf", "vboxPj"})
+	@NotifyChange({"divPf", "divPj", "pf"})
 	public void pj() {
 		
-		pf = true;
-		pj = false;
+		pf = false;
 		
-		vboxPf.setVisible(false);
-		vboxPj.setVisible(true);
-		BindUtils.postNotifyChange(null, null, this, "vboxPf");
-		BindUtils.postNotifyChange(null, null, this, "vboxPj");
+		divPf.setVisible(false);
+		divPj.setVisible(true);
+		BindUtils.postNotifyChange(null, null, this, "pf");
+		BindUtils.postNotifyChange(null, null, this, "divPf");
+		BindUtils.postNotifyChange(null, null, this, "divPj");
 		
 	}
 	

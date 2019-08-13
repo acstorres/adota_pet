@@ -213,6 +213,7 @@ body {
 .z-combobox-popup, .z-bandbox-popup, .z-datebox-popup, .z-timebox-popup
 	{
 	border: 1px solid #77b2b2;
+	font-family: Futura Light;
 }
 
 .z-combobox-input:focus {
@@ -429,7 +430,12 @@ body {
 
 .z-datebox-input:focus, .z-datebox-icon, .z-icon-calendar,
 	.z-datebox-button:hover, .z-datebox-button:active, .z-datebox-button {
-	border-color: #F45830 !important;
+	border-color: #333333 !important;
+}
+
+.z-datebox-input:focus, .z-datebox-input{
+	border-color: #333333 !important;
+	font-family: Futura Light;
 }
 
 .z-calendar-cell:hover {
