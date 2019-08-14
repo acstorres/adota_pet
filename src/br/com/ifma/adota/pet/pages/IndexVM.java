@@ -19,9 +19,11 @@ import br.com.ifma.adota.pet.model.usuario.UsuarioSessionBeanFacadeLocal;
 
 public class IndexVM {
 	private Usuario usuario;
+	
 	private String login, senha, conteudo = "default.zul";
 
 	private UsuarioSessionBeanFacadeLocal usuarioSessionBeanFacadeLocal;
+	
 	private LancamentoAdocaoSessionBeanFacadeLocal lancamentoAdocaoSessionBeanFacadeLocal;
 
 	public IndexVM() {
