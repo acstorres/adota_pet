@@ -205,7 +205,7 @@
 									width="80px;" onClick="@command('anteriorLogin')">
 								</button>
 
-								<button label="Criar conta"
+								<button label="Próximo"
 									style="margin-top: 5px; padding: 3px;" height="27px"
 									width="80px;" onClick="@command('proximoLogin')">
 								</button>
@@ -224,11 +224,11 @@
 				height="300px;">
 
 				<button label="Quero ser doador" class="btespecial"
-					height="110px" width="400px;" onClick="@command('abrirSistema', doador=true)">
+					height="110px" width="400px;" onClick="@command('criarConta', doador=true)">
 				</button>
 				<space/>
 				<button label="Quero apenas adotar" class="btespecial"
-					height="110px" width="400px;" onClick="@command('abrirSistema', doador=false)">
+					height="110px" width="400px;" onClick="@command('criarConta', doador=false)">
 				</button>
 
 

@@ -63,6 +63,12 @@ public class AdotanteVM {
 			break;
 		}
 	}
+	
+	@Command
+	public void sair() {
+		Sessions.getCurrent().invalidate();
+		Executions.sendRedirect("index.zul");
+	}
 
 
 	public Cliente getCliente() {

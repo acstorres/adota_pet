@@ -42,6 +42,11 @@
 								<menuitem label="Editar"
 									onClick="@command('irPara', pagina='teste')">
 								</menuitem>
+								
+								
+								<menuitem label="Sair"
+									onClick="@command('sair')">
+								</menuitem>
 
 							</menubar>
 

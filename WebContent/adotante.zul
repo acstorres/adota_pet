@@ -43,6 +43,10 @@
 								<menuitem label="Teste"
 									onClick="@command('irPara', pagina='teste')">
 								</menuitem>
+								
+									<menuitem label="Sair"
+									onClick="@command('sair')">
+								</menuitem>
 
 							</menubar>
 
