@@ -6,7 +6,8 @@
 
 		<div
 			style="background-color: #00B7B1; border-color: #00B7B1; padding-top: 0px; margin-top: 0px;">
-			<div style="padding-top: 0px; margin-top: 0px; margin-left:10px;">
+			<div
+				style="padding-top: 0px; margin-top: 0px; margin-left:10px;">
 				<hbox width="100%">
 					<vbox style="margin-top: 30px;">
 
@@ -42,27 +43,23 @@
 							</listhead>
 
 							<template name="model">
-								<listitem>
-									<listcell
-										style="font-size:10px;"
+								<listitem
+									onClick="@command('abrirModalVisualizarPet', visible=true, animal=each)">
+									<listcell style="font-size:10px;"
 										label="@load(each.raca.especie.descricao)">
 									</listcell>
-									<listcell
-										style="font-size:10px;" 
+									<listcell style="font-size:10px;"
 										label="@load(each.raca.descricao)">
 									</listcell>
-									<listcell
-										style="font-size:10px;"
+									<listcell style="font-size:10px;"
 										label="@load(each.nome)">
 									</listcell>
 
-									<listcell
-										style="font-size:10px;" 
+									<listcell style="font-size:10px;"
 										label="@load(each.cor)">
 									</listcell>
 
-									<listcell
-										style="font-size:10px;" 
+									<listcell style="font-size:10px;"
 										label="@load(each.adotado)">
 									</listcell>
 
@@ -73,12 +70,12 @@
 												style="font-size:10px; padding:0pt; margin:0px; width: 45px;"
 												onClick="@command('abrirModalEditarPet', visible=true, animal=each)">
 											</button>
-											<space/>
+											<space />
 											<button
 												class="button-danger" tooltiptext="excluir pet"
 												style="font-size:11px; padding: 3px;" label="remover"
 												iconSclass="fas fa-trash-alt"
-												onClick="@command('removePet', animaal=each)" />
+												onClick="@command('excluirPet', animal=each)" />
 
 
 
@@ -122,6 +119,165 @@
 
 
 		</div>
+
+		<window id="modalEditarPet" mode="modal" width="900px"
+			visible="false" sclass="custom-window">
+
+			<div sclass="bordas"
+				style="padding: 5px; text-align: center;">
+				<label value="Editar Pet" sclass="custom-title" />
+			</div>
+
+			<div sclass="bordas" style="padding: 8px;">
+
+				<grid>
+					<columns>
+						<column></column>
+						<column></column>
+					</columns>
+					<rows>
+						<row>
+							<div>
+
+								<hlayout>
+
+									<label
+										value="@load(vm.animalSelecionado.raca.especie.descricao)"
+										style="font-size:20px; color: #fff; font-weight: bold;">
+
+									</label>
+								</hlayout>
+							</div>
+
+							<div>
+
+								<hlayout>
+
+									<combobox autodrop="true"
+										placeholder="Raça*" style="font-size:20px;"
+										model="@load(vm.racas)"
+										selectedItem="@bind(vm.racaSelecionada)" buttonVisible="true"
+										width="250px">
+										<template name="model"
+											var="raca">
+											<comboitem
+												label="@load(raca.descricao)" />
+										</template>
+									</combobox>
+								</hlayout>
+							</div>
+
+
+						</row>
+						<row>
+							<div>
+
+								<hlayout>
+
+									<combobox autodrop="true"
+										placeholder="Porte*" style="font-size:20px;"
+										model="@load(vm.portes)"
+										selectedItem="@bind(vm.animalSelecionado.porte)"
+										buttonVisible="true" width="250px">
+										<template name="model"
+											var="porte">
+											<comboitem
+												label="@load(porte)" />
+										</template>
+									</combobox>
+								</hlayout>
+
+
+							</div>
+							<div>
+								<textbox placeholder="Nome*"
+									style="font-size: 20px;"
+									value="@bind(vm.animalSelecionado.nome)" width="300px"
+									maxlength="100" height="33px" />
+
+							</div>
+
+						</row>
+						<row>
+							<div>
+								<intbox placeholder="Idade*"
+									style="font-size: 20px;" value="@bind(vm.idade)" width="300px"
+									maxlength="100" height="33px" />
+
+							</div>
+							<div>
+								<textbox placeholder="Cor*"
+									style="font-size: 20px;"
+									value="@bind(vm.animalSelecionado.cor)" width="300px"
+									maxlength="100" height="33px" />
+
+							</div>
+
+						</row>
+						<row>
+							<div>
+								<textbox rows="2"
+									style="font-size:20px;" placeholder="Sinais"
+									value="@bind(vm.animalSelecionado.sinais)" width="200px">
+								</textbox>
+							</div>
+							<div>
+								<textbox rows="2"
+									style="font-size:20px;" placeholder="Descricao"
+									value="@bind(vm.animalSelecionado.descricao)" width="200px">
+								</textbox>
+
+							</div>
+
+						</row>
+						<row>
+							<radio onClick="@command('femea')"
+								checked="@bind(vm.femea)" label="Fêmea"
+								style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+							<radio
+								checked="@bind(vm.animalSelecionado.castrado)" label="Castrado"
+								style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+
+						</row>
+						<row>
+							<radio onClick="@command('macho')"
+								checked="@bind(vm.macho)" label="Macho"
+								style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+							<div></div>
+						</row>
+					</rows>
+
+				</grid>
+
+
+
+
+
+
+
+
+			</div>
+
+
+			<separator />
+
+			<div align="center">
+				<button label="fechar"
+					style="font-size:11px; padding: 3px;"
+					iconSclass="fas fa-times-circle"
+					onClick="@command('abrirModalEditarPet', visible=false, animal=null)" />
+				<button style="font-size:11px; padding: 3px;"
+					label="salvar alterações" iconSclass="fas fa-check-circle"
+					onClick="@command('salvaEdicaoPet')" />
+
+
+			</div>
+
+		</window>
+
 
 
 	</div>

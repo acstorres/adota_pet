@@ -1,5 +1,6 @@
 package br.com.ifma.adota.pet.pages;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -19,9 +20,12 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Window;
 
 import br.com.ifma.adota.pet.model.animal.Animal;
+import br.com.ifma.adota.pet.model.animal.AnimalBuilder;
 import br.com.ifma.adota.pet.model.animal.AnimalSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 import br.com.ifma.adota.pet.model.cliente.ClienteBuilder;
@@ -34,7 +38,7 @@ import br.com.ifma.adota.pet.util.RacaPredicates;
 public class MuralPetsVM {
 
 	private Cliente cliente;
-	private Animal animal;
+	private Animal animal, animalSelecionado;
 	private Especie especieSelecionada;
 	private Raca racaSelecionada;
 
@@ -49,6 +53,12 @@ public class MuralPetsVM {
 	private EspecieSessionBeanFacadeLocal especieSessionBeanFacadeLocal;
 	private RacaSessionBeanFacadeLocal racaSessionBeanFacadeLocal;
 	private AnimalSessionBeanFacadeLocal animalSessionBeanFacadeLocal;
+
+	@Wire("#modalEditarPet")
+	private Window modalEditarPet;
+
+	@Wire("#modalVisualizarPet")
+	private Window modalVisualizarPet;
 
 	public MuralPetsVM() {
 
@@ -76,8 +86,10 @@ public class MuralPetsVM {
 		} else {
 			cliente = ClienteBuilder.umNovoCliente().constroi();
 			cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
-
+			animais = new ArrayList<Animal>();
 			animais = (List<Animal>) animalSessionBeanFacadeLocal.findByClienteId(cliente.getClienteId());
+			animalSelecionado = AnimalBuilder.umNovoAnimal().constroi();
+
 			// animal =
 			// AnimalBuilder.umNovoAnimal().definidoAutomaticamentePelaDataCadastro().constroi();
 
@@ -85,11 +97,11 @@ public class MuralPetsVM {
 			// racaSelecionada = RacaBuilder.umaNovaRaca().constroi();
 
 			// especies = (List<Especie>) especieSessionBeanFacadeLocal.findAll();
-			// racasAll = (List<Raca>) racaSessionBeanFacadeLocal.findAll();
-			// portes = new ArrayList<String>();
-			// portes.add("Pequeno");
-			// portes.add("Médio");
-			// portes.add("Grande");
+			racasAll = (List<Raca>) racaSessionBeanFacadeLocal.findAll();
+			portes = new ArrayList<String>();
+			portes.add("Pequeno");
+			portes.add("Médio");
+			portes.add("Grande");
 
 		}
 
@@ -98,23 +110,6 @@ public class MuralPetsVM {
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
-	}
-
-	@Command
-	@NotifyChange({ "especies", "racas" })
-	public void onSelectEspecie(@BindingParam("especieSelecionada") Integer especieId) {
-
-		racas = (List<Raca>) RacaPredicates.filtrarRaca(racasAll,
-				RacaPredicates.racaEquals(especieSelecionada.getEspecieId()));
-
-		Collections.sort(racas, new Comparator<Raca>() {
-			public int compare(Raca r1, Raca r2) {
-				return r1.getDescricao().compareTo(r2.getDescricao());
-			}
-		});
-
-		BindUtils.postNotifyChange(null, null, this, "especies");
-		BindUtils.postNotifyChange(null, null, this, "racas");
 	}
 
 	@Command
@@ -138,6 +133,30 @@ public class MuralPetsVM {
 	}
 
 	@Command
+	@NotifyChange({ "animais" })
+	public void excluirPet(@BindingParam("animal") Animal animal) {
+		if (animal != null) {
+			animalSelecionado = animal;
+			animalSelecionado.setAtivo(false);
+			if (animalSessionBeanFacadeLocal.update(animalSelecionado) != null) {
+
+				animais.remove(animalSelecionado);
+				Clients.showNotification("Pet excluído com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null, 3000,
+						true);
+
+			} else {
+				Clients.showNotification("Não foi possível excluir o Pet!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
+						true);
+				return;
+			}
+
+		}
+
+		BindUtils.postNotifyChange(null, null, this, "animais");
+	}
+
+	@Command
+	@NotifyChange({ "animais", "animalSelecionado" })
 	public void salvaEdicaoPet() {
 		if (racaSelecionada == null) {
 			Clients.showNotification("Raça não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
@@ -145,12 +164,12 @@ public class MuralPetsVM {
 			return;
 		}
 
-		if (animal.getPorte() == null || animal.getPorte().isEmpty()) {
+		if (animalSelecionado.getPorte() == null || animalSelecionado.getPorte().isEmpty()) {
 			Clients.showNotification("Porte não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
 					true);
 			return;
 		}
-		if (animal.getNome() == null || animal.getNome().isEmpty()) {
+		if (animalSelecionado.getNome() == null || animalSelecionado.getNome().isEmpty()) {
 			Clients.showNotification("Nome não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
 					true);
 			return;
@@ -160,7 +179,7 @@ public class MuralPetsVM {
 					true);
 			return;
 		}
-		if (animal.getCor() == null || animal.getCor().isEmpty()) {
+		if (animalSelecionado.getCor() == null || animalSelecionado.getCor().isEmpty()) {
 			Clients.showNotification("Cor não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
 					true);
 			return;
@@ -172,27 +191,97 @@ public class MuralPetsVM {
 			return;
 		}
 
-		animal.setRaca(racaSelecionada);
-		animal.setDoador(cliente);
-		animal.setIdade(Integer.parseInt(idade));
+		animalSelecionado.setRaca(racaSelecionada);
+		animalSelecionado.setDoador(cliente);
+		animalSelecionado.setIdade(Integer.parseInt(idade));
 
 		if (femea) {
-			animal.setSexo("F");
+			animalSelecionado.setSexo("F");
 		} else {
-			animal.setSexo("M");
+			animalSelecionado.setSexo("M");
 		}
 
-		animal.setAtivo(true);
-
-		if (animalSessionBeanFacadeLocal.update(animal) != null) {
+		if (animalSessionBeanFacadeLocal.update(animalSelecionado) != null) {
 			Clients.showNotification("Edicao de Pet salva com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null,
 					3000, true);
+
+			modalEditarPet.setVisible(false);
+			BindUtils.postNotifyChange(null, null, this, "animais");
+			BindUtils.postNotifyChange(null, null, this, "animalSelecionado");
 
 		} else {
 
 			Clients.showNotification("Erro ao salvar edicao Pet!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
 					true);
 			return;
+		}
+
+	}
+
+	@Command
+	@NotifyChange({ "." })
+	public void abrirModalVisualizarPet(@BindingParam("visible") boolean visible,
+			@BindingParam("animal") Animal animal) {
+
+		if (!visible) {
+
+			animalSelecionado = null;
+			modalVisualizarPet.setVisible(false);
+		} else {
+
+			animalSelecionado = animal;
+			modalVisualizarPet.setVisible(visible);
+		}
+
+	}
+
+	@Command
+	@NotifyChange({ "animais", "animalSelecionado", "idade", "racaSelecionada", "femea", "macho", "racas" })
+	public void abrirModalEditarPet(@BindingParam("visible") boolean visible, @BindingParam("animal") Animal animal)
+			throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+
+		if (!visible) {
+
+			animalSelecionado = null;
+
+			modalEditarPet.setVisible(false);
+
+		} else {
+			animalSelecionado = animal;
+
+			idade = String.valueOf(animalSelecionado.getIdade());
+
+			racas = (List<Raca>) RacaPredicates.filtrarRaca(racasAll,
+					RacaPredicates.racaEquals(animalSelecionado.getRaca().getEspecie().getEspecieId()));
+
+			for (Raca r : racas) {
+				if (r.equals(animalSelecionado.getRaca())) {
+					racaSelecionada = r;
+				}
+			}
+
+			Collections.sort(racas, new Comparator<Raca>() {
+				public int compare(Raca r1, Raca r2) {
+					return r1.getDescricao().compareTo(r2.getDescricao());
+				}
+			});
+
+			if (animalSelecionado.getSexo().equals("F")) {
+				femea = true;
+			} else {
+				macho = true;
+			}
+//TODO fazer validações
+
+			BindUtils.postNotifyChange(null, null, this, "animalSelecionado");
+			BindUtils.postNotifyChange(null, null, this, "animais");
+			BindUtils.postNotifyChange(null, null, this, "idade");
+			BindUtils.postNotifyChange(null, null, this, "racaSelecionada");
+			BindUtils.postNotifyChange(null, null, this, "femea");
+			BindUtils.postNotifyChange(null, null, this, "macho");
+			BindUtils.postNotifyChange(null, null, this, "racas");
+
+			modalEditarPet.setVisible(visible);
 		}
 
 	}
@@ -291,6 +380,14 @@ public class MuralPetsVM {
 
 	public void setAnimais(List<Animal> animais) {
 		this.animais = animais;
+	}
+
+	public Animal getAnimalSelecionado() {
+		return animalSelecionado;
+	}
+
+	public void setAnimalSelecionado(Animal animalSelecionado) {
+		this.animalSelecionado = animalSelecionado;
 	}
 
 }
