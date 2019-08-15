@@ -11,16 +11,27 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.util.Clients;
 
+import br.com.ifma.adota.pet.model.cliente.Cliente;
+import br.com.ifma.adota.pet.model.cliente.ClienteBuilder;
+import br.com.ifma.adota.pet.model.cliente.ClienteSessionBeanFacadeLocal;
+import br.com.ifma.adota.pet.model.endereco.Endereco;
+import br.com.ifma.adota.pet.model.endereco.EnderecoSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.usuario.Usuario;
 import br.com.ifma.adota.pet.model.usuario.UsuarioSessionBeanFacadeLocal;
 
 public class IndexVM {
 	private Usuario usuario;
+	private Cliente cliente;
+	private Endereco endereco;
 	private String login, senha, conteudo = "default.zul";
 
 	private UsuarioSessionBeanFacadeLocal usuarioSessionBeanFacadeLocal;
+	private ClienteSessionBeanFacadeLocal clienteSessionBeanFacadeLocal;
 
 	public IndexVM() {
 		try {
@@ -29,6 +40,9 @@ public class IndexVM {
 			usuarioSessionBeanFacadeLocal = (UsuarioSessionBeanFacadeLocal) ic
 					.lookup("java:global/adota_pet/" + UsuarioSessionBeanFacadeLocal.JNDI);
 
+			clienteSessionBeanFacadeLocal = (ClienteSessionBeanFacadeLocal) ic
+					.lookup("java:global/adota_pet/" + ClienteSessionBeanFacadeLocal.JNDI);
+			
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -56,6 +70,54 @@ public class IndexVM {
 
 	@Command
 	public void entrar() {
+
+		try {
+			if (login == null || senha == null) {
+				Clients.showNotification("Os campos login e senha devem ser preenchidos!",
+						Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000, true);
+				return;
+			} else {
+
+				try {
+					
+				 usuario = usuarioSessionBeanFacadeLocal.findByLogin(login);
+				 System.out.println(usuario.getLogin());
+				
+				} catch (Exception e) {
+					Clients.showNotification("Usuario e senha inválido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+							3000, true);
+					return;
+				}
+
+				if (usuario == null) {
+					Clients.showNotification("Usuário não cadastrado!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+							3000, true);
+					return;
+				} else {
+
+					if (usuario.getSenha().trim().equals(senha.trim())) {
+
+						cliente = clienteSessionBeanFacadeLocal.findByUsuarioId(usuario.getUsuarioId());
+						
+						Sessions.getCurrent().setAttribute("cliente", cliente);
+						Sessions.getCurrent().setAttribute("usuario", usuario);
+						// TODO apagar depois
+						System.out.println(cliente.getNome());
+
+						Executions.sendRedirect("home.zul");
+					} else {
+
+						Clients.showNotification("Usuário e senha não correspondem à um usuário válido!",
+								Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000, true);
+						return;
+					}
+				}
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 
 	}
 
@@ -94,6 +156,14 @@ public class IndexVM {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

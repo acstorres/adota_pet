@@ -37,7 +37,14 @@ body {
 /* .z-menubar-horizontal li {
 	margin: 4px;
 } */
-.z-menu-text, .z-menuitem-text, .z-center-body {
+
+.z-center-body{
+	font-size: 16px !important;
+	color: #fff !important;
+	font-family: "Futura Light" !important;
+	
+}
+.z-menu-text, .z-menuitem-text {
 	font-size: 16px !important;
 	color: #fff !important;
 	font-family: "Futura Light" !important;
@@ -59,6 +66,10 @@ body {
 .z-menu-content, .z-menuitem-content {
 	background: none;
 	color: #fff !important;
+}
+
+.z-menupopup, .z-menu-content, .z-menuitem-content{
+		background: none !important;
 }
 
 .z-menu-content:hover, .z-menuitem-content:hover {
@@ -172,6 +183,29 @@ body {
 	background-color: #F45830;
 }
 
+.btespecial{
+	background-color: #00B7B1;
+	font-size: 35px;
+	padding: 6px 10px;
+	font-family: Fredericka the Great;
+	margin-bottom: 60px;
+	margin-top: 20px;
+	border-radius: 10px;
+	
+}
+.btespecial:hover{
+	margin-left: -10px;
+	background-color: #F45830;
+	margin-top: 15px;
+	margin-bottom: 65px;
+	-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 6px
+}
+
+.btespecial:active{
+	background-color:  #99412b;
+}
 
 .button2 {
 	background-color: #333333;
@@ -578,4 +612,13 @@ body {
 		format("truetype"),
 		url("//db.onlinewebfonts.com/t/02a0efa4275f78836dfc89db9e21feea.svg#Futura Book")
 		format("svg");
+}
+
+@font-face {font-family: "Fredericka the Great";
+    src: url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.eot");
+    src: url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/0ed964b46cdfeeff9e07717b9285bd7f.svg#Fredericka the Great") format("svg");
 }

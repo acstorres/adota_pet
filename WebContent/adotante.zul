@@ -8,67 +8,52 @@
 	<custom-attributes org.zkoss.zul.image.preload="true" />
 
 	<borderlayout style="padding-top: 0px" hflex="1" vflex="1"
-		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.IndexVM')">
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.AdotanteVM')">
 
 		<north vflex="min" border="none"
-			style="background-color: #005551;  box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 6px; border: 0px;">
-			<div>
+			style="background-color: #005551;">
+			<div style="display: inline-block;">
 				<hlayout>
 
 					<div
-						style="
-						text-align: right; margin-top:0px;  margin-left:200px; margin-bottom:2px; padding-bottom:2px; padding-top: 10px;">
+						style="text-align: right; margin-top:3px;  margin-left:90px; margin-bottom:5px; padding-bottom:3px; ">
 						<div sclass="left">
 							<image height="65px" width="175px"
 								onClick="@command('irPara', pagina='menuInicial')"
 								src="/images/logo.png" />
 
 						</div>
-						<div
-							style="margin-left: 550px; margin-botom: 3px;">
-							<hbox width="">
-								<div style="margin-right: 10px;">
-									<label value="Login"
-										style="padding-top: 10px;" />
-									<hlayout>
-										<textbox value="@bind(vm.login)"
-											style="margin-top: 3px;" id="txtLogin" width="160px"
-											height="27px" maxlength="100" focus="true" />
+					
+				<div>
 
+							<menubar autodrop="true"
+								style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
 
-									</hlayout>
+								<menuitem label="Início"
+									onClick="@command('irPara', pagina='inicio')" />
+								<menu label="Editar">
+									<menupopup>
+										<menuitem label="multa"
+											onClick="@command('irPara', pagina='teste')" />
+										<menuitem label="tipo de multa"
+											onClick="@command('irPara', pagina='teste')" />
+									</menupopup>
+								</menu>
 
-								</div>
+								<menuitem label="Teste"
+									onClick="@command('irPara', pagina='teste')">
+								</menuitem>
 
-								<div>
-									<label value="Senha"
-										style="padding-top: 10px;" />
-
-									<hlayout>
-										<textbox type="password"
-											style="margin-top: 3px;" value="@bind(vm.senha)"
-											id="txtSenha" width="120px" maxlength="100" height="27px" />
-
-									</hlayout>
-
-
-								</div>
-
-
-
-								<button label="Entrar"
-									style="margin-top: 20px; margin-left: 5px; padding: 3px;"
-									height="27px" width="80px;" onClick="@command('entrar')">
-								</button>
-							</hbox>
+							</menubar>
 
 						</div>
-
-						<toolbarbutton label="ou Registre-se"
-							onClick="@command('irPara', pagina='registro')"
+						
+						<toolbarbutton label="@load(vm.cliente.nome)"
 							style="font-size:12px; color: #fff; font-family: Futura Light !important;" />
-
+					
 					</div>
+
+
 
 				</hlayout>
 
@@ -77,9 +62,8 @@
 		</north>
 
 		<center id="mainContent" autoscroll="true"
-			style="background-color: #00B7B1; border: 0px;">
+			style="background-color: #00B7B1;">
 			<include src="@load(vm.conteudo)" />
-
 		</center>
 
 		<south border="0">
@@ -93,8 +77,6 @@
 					onClick='Executions.getCurrent().sendRedirect("https://portal.ifma.edu.br/inicio/","_blank")' />
 			</div>
 		</south>
-
-
 
 
 	</borderlayout>
