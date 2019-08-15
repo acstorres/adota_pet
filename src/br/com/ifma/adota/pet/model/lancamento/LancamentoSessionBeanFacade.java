@@ -48,7 +48,7 @@ public class LancamentoSessionBeanFacade extends GenericsSessionBeanFacadeImpl<L
 			throw new BeanFacadeException("Cliente invÃ¡lido e/ou inexistente.");
 
 		if (animais == null || (animais != null && animais.isEmpty()))
-			throw new BeanFacadeException("NÃ£o existem ou foram definidos animais para gerar adoÃ§Ã£o.");
+			throw new BeanFacadeException("Não existem ou foram definidos animais para gerar adoção.");
 
 		lancamento = LancamentoBuilder.umNovoLancamentoCom(cliente).definidoAutomaticamentePelaDataLancamento()
 				.constroi();
@@ -60,13 +60,13 @@ public class LancamentoSessionBeanFacade extends GenericsSessionBeanFacadeImpl<L
 	@Override
 	public void processarLancamentosAdocao(Lancamento lancamentoAdocao) throws BeanFacadeException {
 		if (lancamentoAdocao == null)
-			throw new BeanFacadeException("Cliente invÃ¡lido e/ou inexistente.");
+			throw new BeanFacadeException("Cliente inválido e/ou inexistente.");
 
 		if (!lancamentoAdocao.isClienteValido())
-			throw new BeanFacadeException("Cliente invÃ¡lido e/ou inexistente.");
+			throw new BeanFacadeException("Cliente inválido e/ou inexistente.");
 
 		if (!lancamentoAdocao.isMovimentosAdocaoValido())
-			throw new BeanFacadeException("NÃ£o existem ou foram definidos animais para adoÃ§Ã£o.");
+			throw new BeanFacadeException("Não existem ou foram definidos animais para adoção.");
 
 		try {
 			this.include(lancamentoAdocao);

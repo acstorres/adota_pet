@@ -82,13 +82,13 @@ public class IndexVM {
 					System.out.println(usuario.getLogin());
 
 				} catch (Exception e) {
-					Clients.showNotification("Usuario e senha invï¿½lido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					Clients.showNotification("Usuario e senha inválido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
 							3000, true);
 					return;
 				}
 
 				if (usuario == null || usuario.isAtivo() == false) {
-					Clients.showNotification("Usuï¿½rio nï¿½o cadastrado!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					Clients.showNotification("Usuário não cadastrado!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
 							3000, true);
 					return;
 				} else {
@@ -114,14 +114,14 @@ public class IndexVM {
 
 						}else {
 
-							Clients.showNotification("Usuï¿½rio invï¿½lido!", Clients.NOTIFICATION_TYPE_WARNING, null,
+							Clients.showNotification("Usuário inválido!", Clients.NOTIFICATION_TYPE_WARNING, null,
 									null, 3000, true);
 							return;
 						}
 
 					} else {
 
-						Clients.showNotification("Usuï¿½rio e senha nï¿½o correspondem ï¿½ um usuï¿½rio vï¿½lido!",
+						Clients.showNotification("Usuário e senha não correspondem a um usuário válido!",
 								Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000, true);
 						return;
 					}

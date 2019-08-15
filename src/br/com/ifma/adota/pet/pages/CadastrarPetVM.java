@@ -139,6 +139,9 @@ public class CadastrarPetVM {
 	}
 
 	@Command
+	@NotifyChange({ "animal", "especieSelecionada", "racaSelecionada", "idade"})
+	
+	
 	public void salvarPet() {
 		if (especieSelecionada == null) {
 			Clients.showNotification("Espécie não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
@@ -192,6 +195,15 @@ public class CadastrarPetVM {
 		animal.setAtivo(true);
 
 		if (animalSessionBeanFacadeLocal.include(animal) != null) {
+			
+			animal = null;
+			especieSelecionada = null;
+			racaSelecionada = null;
+			idade = "";
+			BindUtils.postNotifyChange(null, null, this, "animal");
+			BindUtils.postNotifyChange(null, null, this, "especieSelecionada");
+			BindUtils.postNotifyChange(null, null, this, "racaSelecionada");
+			BindUtils.postNotifyChange(null, null, this, "idade");
 			Clients.showNotification("Pet salvo com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null, 3000,
 					true);
 

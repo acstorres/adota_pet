@@ -1,7 +1,7 @@
 <zk>
 
 	<div
-		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.AdotanteVM')">
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.AdocaoVM')">
 
 
 		<div
@@ -10,9 +10,16 @@
 				style="padding-top: 0px; margin-top: 0px; margin-left:10px;">
 				<hbox width="100%">
 					<vbox style="margin-top: 30px;">
+						<div
+							>
+							<label value="Adotante:"
+								style="font-size:20px; color: #fff; font-family: Futura Light !important; padding-top:20px; font-weight: bold;" />
+							<label value="@load(vm.cliente.nome)"
+								style="font-size:20px; color: #fff; font-family: Futura Light !important; padding-top:20px;font-weight: bold;" />
+						</div>
 
 						<listbox width="100%" model="@load(vm.animais)"
-							mold="paging" pageSize="3"
+							mold="paging" pageSize="4"
 							emptyMessage="Nenhuma animal registrado."
 							style="-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
@@ -26,21 +33,21 @@
 	border-bottom: 0px;
 	overflow: auto;">
 							<listhead>
-								<listheader width="200px" align="center"
+								<listheader width="100px" align="center"
 									label="nome" />
-								<listheader width="200px" align="center"
+								<listheader width="100px" align="center"
 									label="idade" />
-								<listheader width="200px" align="center"
+								<listheader width="100px" align="center"
 									label="castrado" />
-								<listheader width="200px" align="center"
+								<listheader width="100px" align="center"
 									label="sexo" />
-								<listheader width="150px"
+								<listheader width="100px"
 									label="espécie" align="center" />
-								<listheader width="150px" label="raça"
+								<listheader width="100px" label="raça"
 									align="center" />
-								<listheader width="150px" label="cor"
+								<listheader width="100px" label="cor"
 									align="center" />
-								<listheader width="150px" label="doador"
+								<listheader width="100px" label="doador"
 									align="center" />
 								<listheader width="auto%" label="ações"
 									align="center" />
@@ -48,36 +55,36 @@
 
 							<template name="model">
 								<listitem>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.nome)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.idade)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.castrado)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.sexo)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.raca.especie.descricao)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.raca.descricao)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.cor)">
 									</listcell>
-									<listcell style="font-size:10px;"
+									<listcell style="font-size:12px;"
 										label="@load(each.doador.nome)">
 									</listcell>
 									<listcell>
 										<div>
 											<button
-												iconSclass="fas fa-edit" label="Adotar"
-												style="font-size:10px; padding:0pt; margin:0px; width: 45px;"
-												onClick="@command('adotarPet', visible=true, animal=each)">
+												label="Adotar"
+												style="font-size:10px; width: 45px;"
+												onClick="@command('adotarPet', animal=each)">
 											</button>
 											<space />
 										</div>
