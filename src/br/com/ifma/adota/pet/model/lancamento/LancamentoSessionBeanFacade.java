@@ -100,7 +100,12 @@ public class LancamentoSessionBeanFacade extends GenericsSessionBeanFacadeImpl<L
 
 	@Override
 	public void processarLancamentosAdocao(List<Lancamento> lancamentos) throws BeanFacadeException {
-
+		lancamentos.stream().forEach(lancamento -> {
+			try {
+				this.processarLancamentosAdocao(lancamento);
+			} catch (BeanFacadeException e) {
+				e.printStackTrace();
+			}
+		});
 	}
-
 }

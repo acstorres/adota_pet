@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import br.com.ifma.adota.pet.model.cliente.Cliente;
-
 @Stateless
 public class AnimalSessionBeanFacade implements AnimalSessionBeanFacadeLocal {
 
@@ -43,6 +41,16 @@ public class AnimalSessionBeanFacade implements AnimalSessionBeanFacadeLocal {
 				.setParameter("clienteId", clienteId);
 
 		return q.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao() {
+		Query q = manager.createQuery("select a from " + Animal.NAME + " a where a.adotado = 0 and a.ativo = true");
+		return q.getResultList();
+	}
+	
+	public Animal recuperarPorId(Integer id) {
+        return manager.find(Animal.class, id);
 	}
 
 }

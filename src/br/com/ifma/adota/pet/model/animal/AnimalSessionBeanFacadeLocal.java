@@ -16,6 +16,23 @@ public interface AnimalSessionBeanFacadeLocal {
 	public void remove(Integer animalId);
 
 	public Collection<Animal> findAll();
+	
 	public Collection<Animal> findByClienteId(Integer clienteId);
+	
+	/**
+	 * @author Daniel Santos
+	 * @since 13/08/2019
+	 * @category recuperarTodosAnimaisDisponiveisAdocao
+	 * @param uma Collection de instâncias de {@link Collection} instâncias de {@link Animal}
+	 */
+	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao();
+	
+	/**
+	 * @author Daniel Santos
+	 * @since 13/08/2019
+	 * @category recuperarPorId
+	 * @param 
+	 */
+	public Animal recuperarPorId(Integer id);
 
 }

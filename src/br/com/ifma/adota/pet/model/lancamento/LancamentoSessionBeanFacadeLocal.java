@@ -38,5 +38,4 @@ public interface LancamentoSessionBeanFacadeLocal extends GenericsSessionBeanFac
 	 * @param lancamentoAdocao uma instância de {@link LancamentoAdocao}
 	 */
 	public void processarLancamentosAdocao(Lancamento lancamento) throws BeanFacadeException;
-
 }
