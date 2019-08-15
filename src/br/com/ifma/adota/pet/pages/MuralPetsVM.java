@@ -86,7 +86,7 @@ public class MuralPetsVM {
 		} else {
 			cliente = ClienteBuilder.umNovoCliente().constroi();
 			cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
-
+			animais = new ArrayList<Animal>();
 			animais = (List<Animal>) animalSessionBeanFacadeLocal.findByClienteId(cliente.getClienteId());
 			animalSelecionado = AnimalBuilder.umNovoAnimal().constroi();
 
@@ -130,6 +130,29 @@ public class MuralPetsVM {
 
 		BindUtils.postNotifyChange(null, null, this, "femea");
 		BindUtils.postNotifyChange(null, null, this, "macho");
+	}
+
+	@Command
+	@NotifyChange({ "animais" })
+	public void excluirPet(@BindingParam("animal") Animal animal) {
+		if (animal != null) {
+			animalSelecionado = animal;
+			animalSelecionado.setAtivo(false);
+			if (animalSessionBeanFacadeLocal.update(animalSelecionado) != null) {
+
+				animais.remove(animalSelecionado);
+				Clients.showNotification("Pet excluído com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null, 3000,
+						true);
+
+			} else {
+				Clients.showNotification("Não foi possível excluir o Pet!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000,
+						true);
+				return;
+			}
+
+		}
+
+		BindUtils.postNotifyChange(null, null, this, "animais");
 	}
 
 	@Command
@@ -181,7 +204,7 @@ public class MuralPetsVM {
 		if (animalSessionBeanFacadeLocal.update(animalSelecionado) != null) {
 			Clients.showNotification("Edicao de Pet salva com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null,
 					3000, true);
-			
+
 			modalEditarPet.setVisible(false);
 			BindUtils.postNotifyChange(null, null, this, "animais");
 			BindUtils.postNotifyChange(null, null, this, "animalSelecionado");
@@ -221,26 +244,22 @@ public class MuralPetsVM {
 
 			animalSelecionado = null;
 
-			BindUtils.postNotifyChange(null, null, this, "animalSelecionado");
-
 			modalEditarPet.setVisible(false);
 
 		} else {
 			animalSelecionado = animal;
 
 			idade = String.valueOf(animalSelecionado.getIdade());
-			
+
 			racas = (List<Raca>) RacaPredicates.filtrarRaca(racasAll,
 					RacaPredicates.racaEquals(animalSelecionado.getRaca().getEspecie().getEspecieId()));
-			
-			
-			
+
 			for (Raca r : racas) {
-				if(r.equals(animalSelecionado.getRaca())) {
+				if (r.equals(animalSelecionado.getRaca())) {
 					racaSelecionada = r;
 				}
 			}
-		
+
 			Collections.sort(racas, new Comparator<Raca>() {
 				public int compare(Raca r1, Raca r2) {
 					return r1.getDescricao().compareTo(r2.getDescricao());

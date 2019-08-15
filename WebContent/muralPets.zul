@@ -75,7 +75,7 @@
 												class="button-danger" tooltiptext="excluir pet"
 												style="font-size:11px; padding: 3px;" label="remover"
 												iconSclass="fas fa-trash-alt"
-												onClick="@command('removePet', animaal=each)" />
+												onClick="@command('excluirPet', animal=each)" />
 
 
 
