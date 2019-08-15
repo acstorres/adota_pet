@@ -35,19 +35,24 @@
 
 										<menuitem label="Início"
 											onClick="@command('irPara', pagina='inicio')" />
-										<menu label="Cadastro">
+										<menuitem label="Adotar"
+											onClick="@command('irPara', pagina='adocao')" />
+										<menuitem label="Doar"
+											onClick="@command('irPara', pagina='cadastrarPet')" />
+						
+										<menu label="Meus Pets">
 											<menupopup>
-												<menuitem label="Gato" style="font-weight: bold;"
+												<menuitem label="Doados"
+													style="font-weight: bold;"
 													onClick="@command('irPara', pagina='teste')" />
-												<menuitem style="font-weight: bold;"
-													label="Cachorro"
+												<menuitem
+													style="font-weight: bold;" label="Adotados"
+													onClick="@command('irPara', pagina='teste')" />
+												<menuitem
+													style="font-weight: bold;" label="Para adoção"
 													onClick="@command('irPara', pagina='teste')" />
 											</menupopup>
 										</menu>
-
-										<menuitem label="Teste"
-											onClick="@command('irPara', pagina='teste')">
-										</menuitem>
 
 									</menubar>
 
@@ -55,11 +60,11 @@
 
 							</vbox>
 							<vbox>
-								<div style="margin-top:60px;">
+								<div style="margin-top:60px; margin-left: -100px;">
 
 									<label
 										value="@load(vm.cliente.nome)"
-										style="font-size:12px; color: #fff; font-family: Futura Light !important; padding-top:20px;" />
+										style="font-size:16px; color: #fff; font-family: Futura Light !important; padding-top:20px;" />
 
 
 									<button label="Sair"

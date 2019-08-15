@@ -14,7 +14,7 @@ import br.com.ifma.adota.pet.model.cliente.ClienteBuilder;
 
 public class AdocaoVM {
 	
-	Cliente cliente;
+	private Cliente cliente;
 	
 	public AdocaoVM() {
 		
@@ -28,7 +28,7 @@ public class AdocaoVM {
 			Executions.sendRedirect("index.zul");
 
 		} else {
-			cliente = ClienteBuilder.umNovoCliente().controi();
+			cliente = ClienteBuilder.umNovoCliente().constroi();
 			cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
 
 		}
@@ -38,6 +38,16 @@ public class AdocaoVM {
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 }

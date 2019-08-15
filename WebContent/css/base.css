@@ -261,14 +261,18 @@ body {
 .z-combobox .z-combobox-readonly, .z-combobox-button:hover,
 	.z-combobox-open .z-combobox-button {
 	border-color: #77b2b2 !important;
-	font-size: 10px;
+	font-size: 16px;
 	font-family: Futura Light;
 }
 
 .z-textbox, .z-intbox, .z-combobox-input[readonly], .z-comboitem,
 	.z-paging-text, .z-paging-info, .z-grid-body .z-grid-emptybody td {
-	font-size: 10px;
+	font-size: 16px;
 	font-family: Futura Light;
+}
+
+.z-grid, .z-row-inner{
+	background: #00B7B1 !important;
 }
 
 .z-grid {
@@ -324,7 +328,7 @@ body {
 }
 
 .z-combobox-input {
-	font-size: 11px;
+	font-size: 16px;
 	font-family: "Futura Light" !important;
 }
 

@@ -36,4 +36,30 @@ public class Raca implements Serializable{
 	@JoinColumn(name = "especie_id")
 	private Especie especie;
 
+	public Integer getRacaId() {
+		return racaId;
+	}
+
+	public void setRacaId(Integer racaId) {
+		this.racaId = racaId;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Especie getEspecie() {
+		return especie;
+	}
+
+	public void setEspecie(Especie especie) {
+		this.especie = especie;
+	}
+	
+	
+
 }

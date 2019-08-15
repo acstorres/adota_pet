@@ -54,9 +54,17 @@ public class DoadorVM {
 	public void irPara(@BindingParam("pagina") String pagina) {
 
 		switch (pagina) {
-		case "registro":
-			conteudo = "registro.zul";
+		case "adocao":
+			conteudo = "adocao.zul";
 			break;
+		case "inicia":
+			conteudo = "default.zul";
+			break;
+		case "cadastrarPet":
+			conteudo = "cadastrarPet.zul";
+			break;
+			
+			
 
 		default:
 			conteudo = "default.zul";
