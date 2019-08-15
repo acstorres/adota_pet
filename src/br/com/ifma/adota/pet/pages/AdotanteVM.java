@@ -48,12 +48,6 @@ public class AdotanteVM {
 
 	private String idade;
 
-	private List<Especie> especies;
-
-	private List<Raca> racas, racasAll;
-
-	private List<String> portes;
-
 	private List<Animal> animais;
 
 	private AnimalSessionBeanFacadeLocal animalSessionBeanFacadeLocal;
@@ -84,7 +78,7 @@ public class AdotanteVM {
 		cliente = ClienteBuilder.umNovoCliente().constroi();
 		cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
 
-		animais = (List<Animal>) animalSessionBeanFacadeLocal.recuperarTodosAnimaisDisponiveisAdocao();
+		animais = (List<Animal>) animalSessionBeanFacadeLocal.recuperarTodosAnimaisDisponiveisAdocao(cliente);
 	}
 
 	@AfterCompose
@@ -183,23 +177,7 @@ public class AdotanteVM {
 	public void setAnimal(Animal animal) {
 		this.animal = animal;
 	}
-
-	public List<Especie> getEspecies() {
-		return especies;
-	}
-
-	public void setEspecies(List<Especie> especies) {
-		this.especies = especies;
-	}
-
-	public List<Raca> getRacas() {
-		return racas;
-	}
-
-	public void setRacas(List<Raca> racas) {
-		this.racas = racas;
-	}
-
+	
 	public Especie getEspecieSelecionada() {
 		return especieSelecionada;
 	}
@@ -216,14 +194,6 @@ public class AdotanteVM {
 		this.racaSelecionada = racaSelecionada;
 	}
 
-	public List<Raca> getRacasAll() {
-		return racasAll;
-	}
-
-	public void setRacasAll(List<Raca> racasAll) {
-		this.racasAll = racasAll;
-	}
-
 	public boolean isFemea() {
 		return femea;
 	}
@@ -238,14 +208,6 @@ public class AdotanteVM {
 
 	public void setMacho(boolean macho) {
 		this.macho = macho;
-	}
-
-	public List<String> getPortes() {
-		return portes;
-	}
-
-	public void setPortes(List<String> portes) {
-		this.portes = portes;
 	}
 
 	public String getIdade() {

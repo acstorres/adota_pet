@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.ejb.Local;
 
+import br.com.ifma.adota.pet.model.cliente.Cliente;
+
 @Local
 public interface AnimalSessionBeanFacadeLocal {
 	
@@ -26,6 +28,16 @@ public interface AnimalSessionBeanFacadeLocal {
 	 * @param uma Collection de instâncias de {@link Collection} instâncias de {@link Animal}
 	 */
 	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao();
+	
+	
+	/**
+	 * @author Daniel Santos
+	 * @since 13/08/2019
+	 * @category recuperarTodosAnimaisDisponiveisAdocao
+	 * @param uma Collection de instâncias de {@link Collection} instâncias de {@link Animal}
+	 */
+	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao(Cliente cliente);
+	
 	
 	/**
 	 * @author Daniel Santos

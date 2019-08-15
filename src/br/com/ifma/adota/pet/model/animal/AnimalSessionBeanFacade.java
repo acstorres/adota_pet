@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import br.com.ifma.adota.pet.model.cliente.Cliente;
+
 @Stateless
 public class AnimalSessionBeanFacade implements AnimalSessionBeanFacadeLocal {
 
@@ -34,23 +36,37 @@ public class AnimalSessionBeanFacade implements AnimalSessionBeanFacadeLocal {
 		Query q = manager.createQuery("select a from " + Animal.NAME + " a");
 		return q.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Collection<Animal> findByClienteId(Integer clienteId) {
-		Query q = manager.createQuery("select a from " + Animal.NAME + " a where a.doador.clienteId =: clienteId and a.ativo = true")
+		Query q = manager
+				.createQuery(
+						"select a from " + Animal.NAME + " a where a.doador.clienteId =: clienteId and a.ativo = true")
 				.setParameter("clienteId", clienteId);
 
 		return q.getResultList();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao() {
 		Query q = manager.createQuery("select a from " + Animal.NAME + " a where a.adotado = 0 and a.ativo = true");
 		return q.getResultList();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public Collection<Animal> recuperarTodosAnimaisDisponiveisAdocao(Cliente cliente) {
+		Integer clienteId = cliente.getClienteId();
+
+		Query q = manager
+				.createQuery("select a from " + Animal.NAME
+						+ " a where a.adotado = 0 and a.ativo = true and a.doador.clienteId not in (:clienteId) ")
+				.setParameter("clienteId", clienteId);
+		
+		return q.getResultList();
+	}
+
 	public Animal recuperarPorId(Integer id) {
-        return manager.find(Animal.class, id);
+		return manager.find(Animal.class, id);
 	}
 
 }
