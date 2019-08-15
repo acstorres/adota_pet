@@ -28,6 +28,7 @@ import br.com.ifma.adota.pet.model.endereco.EnderecoSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.usuario.Usuario;
 import br.com.ifma.adota.pet.model.usuario.UsuarioBuilder;
 import br.com.ifma.adota.pet.model.usuario.UsuarioSessionBeanFacadeLocal;
+import br.com.ifma.adota.pet.util.StringUtil;
 
 public class RegistroVM {
 
@@ -160,6 +161,20 @@ public class RegistroVM {
 		divPf.setVisible(false);
 		divPj.setVisible(false);
 
+		//TODO validar aqui
+		
+		if(cliente.getDataNascimento() == null ) {
+		}
+		if(cliente.getCpf() == null) {
+			
+		}
+		
+		if(cliente.getNome() == null) {
+			
+		}
+		
+		
+		
 		divEndereco.setVisible(true);
 
 		BindUtils.postNotifyChange(null, null, this, "divEndereco");

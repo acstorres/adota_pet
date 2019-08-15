@@ -42,14 +42,14 @@
 
 
 							<datebox placeholder="Data de nascimento*"
-								style="font-size: 16px; margin-bottom: 8px;"
+								style="font-size: 16px; margin-bottom: 8px;" constraint="no empty"
 								value="@bind(vm.cliente.dataNascimento)" width="200px"
 								maxlength="100" height="27px" />
-							<textbox placeholder="CPF*"
+							<textbox placeholder="CPF*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.cliente.cpf)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Nome*"
+							<textbox placeholder="Nome*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.cliente.nome)"
 								width="300px" maxlength="100" height="27px" />
 
@@ -73,14 +73,14 @@
 							<label value="Sobre você..."
 								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
 
-							<textbox placeholder="CNPJ*"
+							<textbox placeholder="CNPJ*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.cliente.cnpj)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Razão Social*"
+							<textbox placeholder="Razão Social*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.cliente.razaoSocial)"
 								width="300px" maxlength="100" height="27px" />
-							<textbox placeholder="Nome Fantasia*"
+							<textbox placeholder="Nome Fantasia*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.cliente.nomeFantasia)" />
 							<button label="Próximo"
 								style="margin-top: 5px; padding: 3px;" height="27px"
@@ -107,15 +107,15 @@
 
 
 							<textbox
-								placeholder="Rua, N°, Apartamento, Bloco, etc.."
+								placeholder="Rua, N°, Apartamento, Bloco, etc.." constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.endereco.descricao)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Bairro*"
+							<textbox placeholder="Bairro*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.endereco.bairro)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Cidade*"
+							<textbox placeholder="Cidade*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.endereco.cidade)"
 								width="300px" maxlength="100" height="27px" />
 
@@ -150,11 +150,11 @@
 
 
 
-							<textbox placeholder="Telefone"
+							<textbox placeholder="Telefone" type="tel"
 								style="font-size: 16px;" value="@bind(vm.cliente.telefone)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Email"
+							<textbox placeholder="Email" constraint="/.+@.+\.[a-z]+/: Informe um endereco de email válido!" type="email"
 								style="font-size: 16px;" value="@bind(vm.cliente.email)"
 								width="300px" maxlength="100" height="27px" />
 
@@ -189,11 +189,11 @@
 							<label value="E o login..."
 								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
 
-							<textbox placeholder="Login*"
+							<textbox placeholder="Login*" constraint="no empty"
 								style="font-size: 16px;" value="@bind(vm.usuario.login)"
 								width="300px" maxlength="100" height="27px" />
 
-							<textbox placeholder="Senha*"
+							<textbox placeholder="Senha*" constraint="no empty"
 								type="password" style="font-size: 16px;"
 								value="@bind(vm.usuario.senha)" width="300px" maxlength="100"
 								height="27px" />

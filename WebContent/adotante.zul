@@ -31,21 +31,15 @@
 									</div>
 
 									<menubar autodrop="true"
-										style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
+										style="margin-top:35px; margin-left: 180px; margin-right: 350px; padding-top: 20px; font-family: Futura Light;">
 
 										<menuitem label="Início"
 											onClick="@command('irPara', pagina='inicio')" />
-										<menu label="Editar">
-											<menupopup>
-												<menuitem label="multa" style="font-weight: bold;"
-													onClick="@command('irPara', pagina='teste')" />
-												<menuitem style="font-weight: bold;"
-													label="tipo de multa"
-													onClick="@command('irPara', pagina='teste')" />
-											</menupopup>
-										</menu>
 
-										<menuitem label="Teste"
+										<menuitem label="Adotar"
+											onClick="@command('irPara', pagina='adotar')" />
+
+										<menuitem label="teste"
 											onClick="@command('irPara', pagina='teste')">
 										</menuitem>
 
