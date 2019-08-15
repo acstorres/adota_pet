@@ -59,6 +59,31 @@ public class Raca implements Serializable{
 	public void setEspecie(Especie especie) {
 		this.especie = especie;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((racaId == null) ? 0 : racaId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Raca other = (Raca) obj;
+		if (racaId == null) {
+			if (other.racaId != null)
+				return false;
+		} else if (!racaId.equals(other.racaId))
+			return false;
+		return true;
+	}
 	
 	
 

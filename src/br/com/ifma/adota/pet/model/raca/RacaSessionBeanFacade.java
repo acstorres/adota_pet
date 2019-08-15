@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import br.com.ifma.adota.pet.model.animal.Animal;
+
 @Stateless
 public class RacaSessionBeanFacade implements RacaSessionBeanFacadeLocal {
 	
