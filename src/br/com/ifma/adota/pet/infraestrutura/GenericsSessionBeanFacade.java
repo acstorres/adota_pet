@@ -4,14 +4,20 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.persistence.EntityManager;
+
+import org.hibernate.Session;
+import org.hibernate.stat.Statistics;
 
 public interface GenericsSessionBeanFacade<T, K extends Serializable> {
 
 	///////////////////////////////////// Default
 
 	EntityManager getEntityManagerSession() throws DaoRepositoryException;
+	
+	Session getSession() throws DaoRepositoryException;
+	
+	Statistics getStatisticas() throws DaoRepositoryException;
 
 	///////////////////////////////////// Métodos Padrão
 

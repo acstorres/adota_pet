@@ -19,7 +19,7 @@ public interface LancamentoAdocaoSessionBeanFacadeLocal extends GenericsSessionB
 	 * @category extrairLancamentoAdocaoValidos
 	 * @param cliente uma instância de {@link Cliente}
 	 */
-	public LancamentoAdocao extrairLancamentoAdocaoValidos(Cliente cliente) throws BeanFacadeException;
+	public LancamentoAdocao extrairLancamentoAdocaoValidos(Cliente cliente, List<Animal> animais) throws BeanFacadeException;
 
 	/**
 	 * @author Daniel Santos

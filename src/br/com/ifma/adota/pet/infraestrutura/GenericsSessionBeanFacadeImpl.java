@@ -1,9 +1,9 @@
 package br.com.ifma.adota.pet.infraestrutura;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
-import java.lang.reflect.ParameterizedType;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -18,36 +18,48 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.stat.Statistics;
 
 @Stateless
 @Local(GenericsSessionBeanFacade.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements GenericsSessionBeanFacade<T, K> {
 
-	protected static final String ERRO_ACESSO_A_BASE_DADOS = "Ocorreu um erro ao acessar à base de dados.";
+	protected static final String ERRO_ACESSO_A_BASE_DADOS = " : Ocorreu um erro ao "
+			+ "acessar a base de dados. Tente novamente mais tarde.";
 
 	protected Class<T> classe;
 
 	@PersistenceContext(unitName = "adota_pet")
 	protected EntityManager em;
-		
+
 	@SuppressWarnings("unchecked")
 	public GenericsSessionBeanFacadeImpl() {
 		this.classe = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	public EntityManager getEntityManagerSession() throws DaoRepositoryException {
-		try {			
+		try {
 			return em;
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
+	public Session getSession() throws DaoRepositoryException {
+		return em.unwrap(Session.class);
+	}
+	
+	public Statistics getStatisticas() throws DaoRepositoryException {
+		Statistics statistics = getSession().getSessionFactory().getStatistics();
+		return statistics;
+	}
+
 	@Override
 	public T include(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().persist(obj);
+			getSession().persist(obj);
 			return obj;
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
@@ -57,7 +69,7 @@ public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements
 	@Override
 	public T update(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().merge(obj);
+			getSession().update(obj);
 			return obj;
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
@@ -67,7 +79,7 @@ public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements
 	@Override
 	public void remove(Integer id) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().remove(em.getReference(classe, id));
+			getSession().delete(em.getReference(classe, id));
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
@@ -76,7 +88,7 @@ public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements
 	@Override
 	public void remove(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().remove(getEntityManagerSession().getReference(classe, obj));
+			getSession().delete(getSession().getReference(classe, obj));
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
@@ -98,53 +110,52 @@ public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements
 
 	public void salvar(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().persist(obj);
-			getEntityManagerSession().getTransaction().commit();
+			getSession().save(obj);
+			getSession().flush();
+			getSession().clear();
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			getEntityManagerSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
 	public void salvarSemCommit(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().persist(obj);
-			getEntityManagerSession().close();
+			getSession().save(obj);
+			getSession().close();
 		} catch (HibernateException e) {
-			getEntityManagerSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
 	public void salvarEmLote(List<T> objs) throws DaoRepositoryException {
 		try {
-			for (T obj : objs) {
-				getEntityManagerSession().persist(obj);
-			}
-			getEntityManagerSession().getTransaction().commit();
-			getEntityManagerSession().close();
+			for (T obj : objs)
+				include(obj);
+
 		} catch (HibernateException e) {
-			getEntityManagerSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
 	public void salvarOuAtualizarComCommit(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().merge(obj);
-			getEntityManagerSession().getTransaction().commit();
-			getEntityManagerSession().close();
+			getSession().saveOrUpdate(obj);
+			getSession().flush();
+			getSession().clear();
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			getEntityManagerSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
 	public void excluir(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().remove(obj);
+			getSession().delete(obj);
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
@@ -152,20 +163,22 @@ public class GenericsSessionBeanFacadeImpl<T, K extends Serializable> implements
 
 	public void mergeComCommit(T obj) throws DaoRepositoryException {
 		try {
-			getEntityManagerSession().merge(obj);
-			getEntityManagerSession().getTransaction().commit();
-			getEntityManagerSession().close();
+			getSession().update(obj);
+			getSession().flush();
+			getSession().clear();
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			getEntityManagerSession().getTransaction().rollback();
+			getSession().getTransaction().rollback();
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);
 		}
 	}
 
+
+
 	@Override
 	public T recuperar(K id) throws DaoRepositoryException {
 		try {
-			T obj = (T) getEntityManagerSession().getReference(classe, id);
+			T obj = (T) getSession().get(classe, id);
 			return obj;
 		} catch (HibernateException e) {
 			throw new DaoRepositoryException(ERRO_ACESSO_A_BASE_DADOS, e);

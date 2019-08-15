@@ -13,16 +13,20 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 
 @Entity(name = Animal.NAME)
 @Table(schema = "adota_pet", name = "animal")
+@XmlRootElement
+@Transactional
 public class Animal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "adota_pet_animal";
+	public static final String NAME = "animal";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +45,7 @@ public class Animal implements Serializable {
 	@Column(name = "cor_pelagem")
 	private String corPelagem;
 	
-	@Column(columnDefinition="tinyint(1) default 1")
+	@Column(name = "castrado", columnDefinition="tinyint(1) default 1")
 	private Boolean cadastrado;
 	
 	@Column(name = "sinais_marcas")
@@ -54,12 +58,12 @@ public class Animal implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCadastro;
 	
-	@Column(columnDefinition="tinyint(1) default 0")
+	@Column(name="adotado", columnDefinition="tinyint(1) default 0")
 	private Boolean adotado;
 	
-	@OneToOne
-	@JoinColumn(name = "raca_id")
-	private Raca raca;
+//	@OneToOne
+//	@JoinColumn(name = "raca_id")
+//	private Raca raca;
 	
 	@OneToOne
 	@JoinColumn(name = "doador_cliente_id")
@@ -149,13 +153,13 @@ public class Animal implements Serializable {
 		this.adotado = adotado;
 	}
 
-	public Raca getRaca() {
-		return raca;
-	}
-
-	public void setRaca(Raca raca) {
-		this.raca = raca;
-	}
+//	public Raca getRaca() {
+//		return raca;
+//	}
+//
+//	public void setRaca(Raca raca) {
+//		this.raca = raca;
+//	}
 
 	public Cliente getCliente() {
 		return cliente;
