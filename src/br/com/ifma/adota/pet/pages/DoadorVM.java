@@ -63,7 +63,9 @@ public class DoadorVM {
 		case "cadastrarPet":
 			conteudo = "cadastrarPet.zul";
 			break;
-			
+		case "muralPets":
+			conteudo = "muralPets.zul";
+			break;	
 			
 
 		default:

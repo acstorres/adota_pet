@@ -1,0 +1,129 @@
+<zk>
+
+	<div
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.MuralPetsVM')">
+
+
+		<div
+			style="background-color: #00B7B1; border-color: #00B7B1; padding-top: 0px; margin-top: 0px;">
+			<div style="padding-top: 0px; margin-top: 0px; margin-left:10px;">
+				<hbox width="100%">
+					<vbox style="margin-top: 30px;">
+
+						<listbox width="100%" model="@load(vm.animais)"
+							mold="paging" pageSize="3"
+							emptyMessage="Nenhuma animal registrado."
+							style="-moz-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: rgba(0, 0, 0, 0.5) 1px 2px 6px;
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+	border-top: 0px;
+	border-bottom: 0px;
+	overflow: auto;">
+
+							<listhead>
+
+								<listheader width="150px"
+									label="espécie" align="center" />
+								<listheader width="150px" label="raça"
+									align="center" />
+								<listheader width="200px" align="center"
+									label="nome" />
+								<listheader width="150px" label="cor"
+									align="center" />
+								<listheader width="150px"
+									label="adotado" align="center" />
+								<listheader width="auto%" label="ações"
+									align="center" />
+							</listhead>
+
+							<template name="model">
+								<listitem>
+									<listcell
+										style="font-size:10px;"
+										label="@load(each.raca.especie.descricao)">
+									</listcell>
+									<listcell
+										style="font-size:10px;" 
+										label="@load(each.raca.descricao)">
+									</listcell>
+									<listcell
+										style="font-size:10px;"
+										label="@load(each.nome)">
+									</listcell>
+
+									<listcell
+										style="font-size:10px;" 
+										label="@load(each.cor)">
+									</listcell>
+
+									<listcell
+										style="font-size:10px;" 
+										label="@load(each.adotado)">
+									</listcell>
+
+									<listcell>
+										<div>
+											<button
+												iconSclass="fas fa-edit" label="editar"
+												style="font-size:10px; padding:0pt; margin:0px; width: 45px;"
+												onClick="@command('abrirModalEditarPet', visible=true, animal=each)">
+											</button>
+											<space/>
+											<button
+												class="button-danger" tooltiptext="excluir pet"
+												style="font-size:11px; padding: 3px;" label="remover"
+												iconSclass="fas fa-trash-alt"
+												onClick="@command('removePet', animaal=each)" />
+
+
+
+										</div>
+
+
+
+									</listcell>
+
+								</listitem>
+
+							</template>
+						</listbox>
+
+
+
+					</vbox>
+					<vbox style="padding-bottom: 20px;">
+						<image height="332px" width="180px"
+							style="margin-top: 0px; margin-left: 5px;"
+							src="/images/gato.png" />
+
+
+					</vbox>
+
+
+				</hbox>
+
+			</div>
+
+
+
+		</div>
+
+
+		<div style="background: #fff;">
+
+			<image height="100px" width="100%" style="margin-top: 0px;"
+				src="/images/maos.png" />
+
+
+
+		</div>
+
+
+	</div>
+
+</zk>

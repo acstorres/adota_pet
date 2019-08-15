@@ -39,20 +39,22 @@
 											onClick="@command('irPara', pagina='adocao')" />
 										<menuitem label="Doar"
 											onClick="@command('irPara', pagina='cadastrarPet')" />
-						
-										<menu label="Meus Pets">
+										<menuitem label="Meus Pets"
+											onClick="@command('irPara', pagina='muralPets')" />
+										<!-- 
+											<menu label="Meus Pets">
 											<menupopup>
-												<menuitem label="Doados"
-													style="font-weight: bold;"
-													onClick="@command('irPara', pagina='teste')" />
-												<menuitem
-													style="font-weight: bold;" label="Adotados"
-													onClick="@command('irPara', pagina='teste')" />
-												<menuitem
-													style="font-weight: bold;" label="Para adoção"
-													onClick="@command('irPara', pagina='teste')" />
+											<menuitem label="Doados"
+											style="font-weight: bold;"
+											onClick="@command('irPara', pagina='teste')" />
+											<menuitem
+											style="font-weight: bold;" label="Adotados"
+											onClick="@command('irPara', pagina='teste')" />
+											<menuitem
+											style="font-weight: bold;" label="Para adoção"
+											onClick="@command('irPara', pagina='teste')" />
 											</menupopup>
-										</menu>
+											</menu> -->
 
 									</menubar>
 
@@ -60,7 +62,8 @@
 
 							</vbox>
 							<vbox>
-								<div style="margin-top:60px; margin-left: -100px;">
+								<div
+									style="margin-top:60px; margin-left: -100px;">
 
 									<label
 										value="@load(vm.cliente.nome)"
