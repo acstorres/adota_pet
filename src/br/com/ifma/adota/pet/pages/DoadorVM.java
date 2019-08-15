@@ -15,33 +15,36 @@ import org.zkoss.zk.ui.select.Selectors;
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 
 public class DoadorVM {
-	
+
 	private Cliente cliente;
-	
+
+
 	private String conteudo = "default.zul";
-	
-	
+
 	public DoadorVM() {
-	
 		
+
 	}
 
-	
 	@Init
 	public void init() {
-	
-		
-		if(Sessions.getCurrent().getAttribute("usuario") == null) {
+
+		if (Sessions.getCurrent().getAttribute("usuario") == null) {
 			Executions.sendRedirect("index.zul");
-			
-		}else {
+
+		} else {
 			cliente = new Cliente();
 			cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
-			
-			
+
 		}
-		
-	
+
+	}
+
+	@Command
+	public void excluirConta() {
+
+		//cliente.setAtivo(false);
+
 	}
 
 	@AfterCompose
@@ -65,36 +68,31 @@ public class DoadorVM {
 			break;
 		case "muralPets":
 			conteudo = "muralPets.zul";
-			break;	
-			
+			break;
 
 		default:
 			conteudo = "default.zul";
 			break;
 		}
 	}
-	
+
 	@Command
 	public void sair() {
 		Sessions.getCurrent().invalidate();
 		Executions.sendRedirect("index.zul");
 	}
 
-
 	public Cliente getCliente() {
 		return cliente;
 	}
-
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-
 	public String getConteudo() {
 		return conteudo;
 	}
-
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;

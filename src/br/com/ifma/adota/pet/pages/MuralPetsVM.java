@@ -271,7 +271,6 @@ public class MuralPetsVM {
 			} else {
 				macho = true;
 			}
-//TODO fazer validações
 
 			BindUtils.postNotifyChange(null, null, this, "animalSelecionado");
 			BindUtils.postNotifyChange(null, null, this, "animais");
