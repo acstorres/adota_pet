@@ -16,53 +16,56 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
 
-@Entity(name = MovimentoAdocao.NAME)
-@Table(schema = "adota_pet", name = "movimento_adocao")
+import br.com.ifma.adota.pet.model.animal.Animal;
+import br.com.ifma.adota.pet.model.lancamento.Lancamento;
+
+@Entity(name = Adocao.NAME)
+@Table(schema = "adota_pet", name = "adocao")
 @Transactional
-public class MovimentoAdocao implements Serializable {
+public class Adocao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "adota_pet_movimento_adocao";
+	public static final String NAME = "adota_pet_adocao";
 
 	@Id
-	@Column(name = "movimento_adocao_id")
+	@Column(name = "adocao_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer movimentoAdocaoId;
+	private Integer adocaoId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "animal_id")
 	private Animal animal;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lancamento_acao_id")
-	private LancamentoAdocao lancamentoAdocao;
-
+	@JoinColumn(name = "lancamento_id")
+	private Lancamento lancamento;
+	
 	@Column(name = "data_lancamento")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataLancamento;
 
-	public MovimentoAdocao() {
+	public Adocao() {
 		super();
 	}
 
-	public MovimentoAdocao(Integer movimentoAdocaoId) {
+	public Adocao(Integer adocaoId) {
 		super();
-		this.movimentoAdocaoId = movimentoAdocaoId;
+		this.adocaoId = adocaoId;
 	}
 
-	public MovimentoAdocao(LancamentoAdocao lancamentoAdocao, Animal animal) {
+	public Adocao(Lancamento lancamento, Animal animal) {
 		super();
-		this.lancamentoAdocao = lancamentoAdocao;
+		this.lancamento = lancamento;
 		this.animal = animal;
 	}
 
-	public Integer getMovimentoAdocaoId() {
-		return movimentoAdocaoId;
+	public Integer getAdocaoId() {
+		return adocaoId;
 	}
 
-	public void setMovimentoAdocaoId(Integer movimentoAdocaoId) {
-		this.movimentoAdocaoId = movimentoAdocaoId;
+	public void setAdocaoId(Integer adocaoId) {
+		this.adocaoId = adocaoId;
 	}
 
 	public Animal getAnimal() {
@@ -73,14 +76,14 @@ public class MovimentoAdocao implements Serializable {
 		this.animal = animal;
 	}
 
-	public LancamentoAdocao getLancamentoAdocao() {
-		return lancamentoAdocao;
+	public Lancamento getLancamento() {
+		return lancamento;
 	}
 
-	public void setLancamentoAdocao(LancamentoAdocao lancamentoAdocao) {
-		this.lancamentoAdocao = lancamentoAdocao;
+	public void setLancamento(Lancamento lancamento) {
+		this.lancamento = lancamento;
 	}
-
+	
 	public Date getDataLancamento() {
 		return dataLancamento;
 	}
@@ -92,7 +95,7 @@ public class MovimentoAdocao implements Serializable {
 	////////////////////////////////////////// Métodos de Ação
 
 	public Boolean isLancamentoValido() {
-		return (this.getLancamentoAdocao() != null);
+		return (this.getLancamento() != null);
 	}
 
 	public Boolean isAnimalValido() {
@@ -100,12 +103,12 @@ public class MovimentoAdocao implements Serializable {
 	}
 
 	////////////////////////////////////////// Demais Métodos
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((movimentoAdocaoId == null) ? 0 : movimentoAdocaoId.hashCode());
+		result = prime * result + ((adocaoId == null) ? 0 : adocaoId.hashCode());
 		return result;
 	}
 
@@ -117,12 +120,13 @@ public class MovimentoAdocao implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MovimentoAdocao other = (MovimentoAdocao) obj;
-		if (movimentoAdocaoId == null) {
-			if (other.movimentoAdocaoId != null)
+		Adocao other = (Adocao) obj;
+		if (adocaoId == null) {
+			if (other.adocaoId != null)
 				return false;
-		} else if (!movimentoAdocaoId.equals(other.movimentoAdocaoId))
+		} else if (!adocaoId.equals(other.adocaoId))
 			return false;
 		return true;
 	}
+
 }

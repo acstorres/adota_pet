@@ -1,4 +1,4 @@
-package br.com.ifma.adota.pet.model.adocao;
+package br.com.ifma.adota.pet.model.lancamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +10,27 @@ import javax.naming.NamingException;
 import br.com.ifma.adota.pet.exception.BeanFacadeException;
 import br.com.ifma.adota.pet.infraestrutura.DaoRepositoryException;
 import br.com.ifma.adota.pet.infraestrutura.GenericsSessionBeanFacadeImpl;
+import br.com.ifma.adota.pet.model.adocao.AdocaoSessionBeanFacadeLocal;
+import br.com.ifma.adota.pet.model.animal.Animal;
+import br.com.ifma.adota.pet.model.animal.AnimalSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 
 @Stateless
-public class LancamentoAdocaoSessionBeanFacade extends GenericsSessionBeanFacadeImpl<LancamentoAdocao, Long>
-		implements LancamentoAdocaoSessionBeanFacadeLocal {
+public class LancamentoSessionBeanFacade extends GenericsSessionBeanFacadeImpl<Lancamento, Integer>
+		implements LancamentoSessionBeanFacadeLocal {
 
-	public static final String NAME = "adota_pet_LancamentoAdocaoSessionBeanFacade";
+	public static final String NAME = "adota_pet_LancamentoSessionBeanFacade";
 
-	private MovimentoAdocaoSessionBeanFacadeLocal movimentoAdocaoSessionBeanFacadeLocal;
+	private AdocaoSessionBeanFacadeLocal adocaoSessionBeanFacadeLocal;
 
 	private AnimalSessionBeanFacadeLocal animalSessionBeanFacadeLocal;
 
-	public LancamentoAdocaoSessionBeanFacade() {
+	public LancamentoSessionBeanFacade() {
 		try {
 			InitialContext ic = new InitialContext();
 
-			movimentoAdocaoSessionBeanFacadeLocal = (MovimentoAdocaoSessionBeanFacadeLocal) ic
-					.lookup("java:global/adota_pet/" + MovimentoAdocaoSessionBeanFacadeLocal.JNDI);
+			adocaoSessionBeanFacadeLocal = (AdocaoSessionBeanFacadeLocal) ic
+					.lookup("java:global/adota_pet/" + AdocaoSessionBeanFacadeLocal.JNDI);
 
 			animalSessionBeanFacadeLocal = (AnimalSessionBeanFacadeLocal) ic
 					.lookup("java:global/adota_pet/" + AnimalSessionBeanFacadeLocal.JNDI);
@@ -38,9 +41,8 @@ public class LancamentoAdocaoSessionBeanFacade extends GenericsSessionBeanFacade
 	}
 
 	@Override
-	public LancamentoAdocao extrairLancamentoAdocaoValidos(Cliente cliente, List<Animal> animais)
-			throws BeanFacadeException {
-		LancamentoAdocao lancamentoAdocao = null;
+	public Lancamento extrairLancamentoAdocaoValidos(Cliente cliente, List<Animal> animais) throws BeanFacadeException {
+		Lancamento lancamento = null;
 
 		if (cliente == null)
 			throw new BeanFacadeException("Cliente inválido e/ou inexistente.");
@@ -48,15 +50,15 @@ public class LancamentoAdocaoSessionBeanFacade extends GenericsSessionBeanFacade
 		if (animais == null || (animais != null && animais.isEmpty()))
 			throw new BeanFacadeException("Não existem ou foram definidos animais para gerar adoção.");
 
-		lancamentoAdocao = LancamentoAdocaoBuilder.umNovoLancamentoAdocaoCom(cliente)
-				.definidoAutomaticamentePelaDataLancamento().constroi();
+		lancamento = LancamentoBuilder.umNovoLancamentoCom(cliente).definidoAutomaticamentePelaDataLancamento()
+				.constroi();
 
-		lancamentoAdocao.criarMovimentosAdocao(animais);
-		return lancamentoAdocao;
+		lancamento.criarMovimentosAdocao(animais);
+		return lancamento;
 	}
 
 	@Override
-	public void processarLancamentosAdocao(LancamentoAdocao lancamentoAdocao) throws BeanFacadeException {
+	public void processarLancamentosAdocao(Lancamento lancamentoAdocao) throws BeanFacadeException {
 		if (lancamentoAdocao == null)
 			throw new BeanFacadeException("Cliente inválido e/ou inexistente.");
 
@@ -69,21 +71,21 @@ public class LancamentoAdocaoSessionBeanFacade extends GenericsSessionBeanFacade
 		try {
 			this.include(lancamentoAdocao);
 
-			Boolean persistidosLancamento = (lancamentoAdocao.getLancamentoAcaoId() != null);
+			Boolean persistidosLancamento = (lancamentoAdocao.getLancamentoId() != null);
 			Boolean persistidosMovimentos = Boolean.FALSE;
 
 			if (persistidosLancamento) {
-				this.movimentoAdocaoSessionBeanFacadeLocal.salvarEmLote(lancamentoAdocao.getMovimentoAdocao());
+				this.adocaoSessionBeanFacadeLocal.salvarEmLote(lancamentoAdocao.getAdocao());
 				persistidosMovimentos = Boolean.TRUE;
 			}
 
 			if (persistidosMovimentos) {
 				List<Animal> animais = new ArrayList<Animal>();
 
-				lancamentoAdocao.getMovimentoAdocao().stream().forEach(i -> {
+				lancamentoAdocao.getAdocao().stream().forEach(i -> {
 					animais.add(i.getAnimal());
 				});
-				
+
 				if (animais != null && !animais.isEmpty()) {
 					animais.stream().forEach(animal -> {
 						animal.setAdotado(Boolean.TRUE);
@@ -97,7 +99,7 @@ public class LancamentoAdocaoSessionBeanFacade extends GenericsSessionBeanFacade
 	}
 
 	@Override
-	public void processarLancamentosAdocao(List<LancamentoAdocao> lancamentosAdocao) throws BeanFacadeException {
+	public void processarLancamentosAdocao(List<Lancamento> lancamentos) throws BeanFacadeException {
 
 	}
 

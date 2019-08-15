@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.ifma.adota.pet.model.adocao.Animal;
+import br.com.ifma.adota.pet.model.animal.Animal;;
 
 @Entity(name = HashTagAnimal.NAME)
 @Table(schema = "adota_pet", name = "hashtag_animal")

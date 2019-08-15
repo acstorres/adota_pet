@@ -1,4 +1,4 @@
-package br.com.ifma.adota.pet.model.adocao;
+package br.com.ifma.adota.pet.model.lancamento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,21 +23,24 @@ import javax.transaction.Transactional;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import br.com.ifma.adota.pet.model.adocao.Adocao;
+import br.com.ifma.adota.pet.model.adocao.AdocaoBuilder;
+import br.com.ifma.adota.pet.model.animal.Animal;
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 
-@Entity(name = LancamentoAdocao.NAME)
-@Table(schema = "adota_pet", name = "lancamento_acao")
+@Entity(name = Lancamento.NAME)
+@Table(schema = "adota_pet", name = "lancamento")
 @Transactional
-public class LancamentoAdocao implements Serializable {
+public class Lancamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "adota_pet_lancamento_acao";
+	public static final String NAME = "adota_pet_lancamento";
 
 	@Id
+	@Column(name = "lancamento_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "lancamento_acao_id")
-	private Long lancamentoAcaoId;
+	private Integer lancamentoId;
 
 	@Column(name = "data_lancamento")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -48,24 +51,24 @@ public class LancamentoAdocao implements Serializable {
 	private Cliente cliente;
 
 	@Fetch(FetchMode.SELECT)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "lancamentoAdocao")
-	private List<MovimentoAdocao> movimentosAdocao = new ArrayList<MovimentoAdocao>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "lancamento")
+	private List<Adocao> adocao = new ArrayList<Adocao>();
 
-	public LancamentoAdocao() {
+	public Lancamento() {
 		super();
 	}
 
-	public LancamentoAdocao(Cliente cliente) {
+	public Lancamento(Cliente cliente) {
 		super();
 		this.cliente = cliente;
 	}
 
-	public Long getLancamentoAcaoId() {
-		return lancamentoAcaoId;
+	public Integer getLancamentoId() {
+		return lancamentoId;
 	}
 
-	public void setLancamentoAcaoId(Long lancamentoAcaoId) {
-		this.lancamentoAcaoId = lancamentoAcaoId;
+	public void setLancamentoId(Integer lancamentoId) {
+		this.lancamentoId = lancamentoId;
 	}
 
 	public Date getDataLancamento() {
@@ -84,32 +87,32 @@ public class LancamentoAdocao implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public List<MovimentoAdocao> getMovimentoAdocao() {
-		return this.movimentosAdocao;
+	public List<Adocao> getAdocao() {
+		return this.adocao;
 	}
 
-	public void adicionaMovimentoAdocao(MovimentoAdocao movimentoAdocao) {
-		movimentoAdocao.setLancamentoAdocao(this);
-		this.movimentosAdocao.add(movimentoAdocao);
+	public void adicionaAdocao(Adocao adocao) {
+		adocao.setLancamento(this);
+		this.adocao.add(adocao);
 	}
 
-	public void adicionarMovimentosAdocao(List<MovimentoAdocao> movimentosAdocao) {
-		movimentosAdocao.stream().forEach(i -> {
-			i.setLancamentoAdocao(this);
-			this.movimentosAdocao.add(i);
+	public void adicionarMovimentosAdocao(List<Adocao> Adocao) {
+		adocao.stream().forEach(i -> {
+			i.setLancamento(this);
+			this.adocao.add(i);
 		});
 	}
 
 	////////////////////////////////////////// Métodos de Ação
 
 	public void criarMovimentosAdocao(Animal animal) {
-		if (this.movimentosAdocao == null)
-			this.movimentosAdocao = new ArrayList<MovimentoAdocao>();
+		if (this.adocao == null)
+			this.adocao = new ArrayList<Adocao>();
 
-		MovimentoAdocao movimentoAdocao = MovimentoAdocaoBuilder.umNovoMovimentoAdocao(this, animal)
-				.definidoAutomaticamentePelaDataLancamento().constroi();
+		Adocao Adocao = AdocaoBuilder.umNovoMovimentoAdocao(this, animal).definidoAutomaticamentePelaDataLancamento()
+				.constroi();
 
-		this.adicionaMovimentoAdocao(movimentoAdocao);
+		this.adicionaAdocao(Adocao);
 	}
 
 	public void criarMovimentosAdocao(List<Animal> animais) {
@@ -123,15 +126,14 @@ public class LancamentoAdocao implements Serializable {
 	}
 
 	public Boolean isMovimentosAdocaoValido() {
-		if (this.getMovimentoAdocao() == null
-				&& (this.getMovimentoAdocao() != null && this.getMovimentoAdocao().isEmpty()))
+		if (this.adocao == null && (this.adocao != null && this.adocao.isEmpty()))
 			return Boolean.FALSE;
 
-		int qtdeElementos = this.getMovimentoAdocao().size();
+		int qtdeElementos = this.adocao.size();
 		int qtdeElementosValidos = 0;
 
-		for (MovimentoAdocao movimentoAdocao : this.getMovimentoAdocao()) {
-			if (movimentoAdocao.isAnimalValido() && movimentoAdocao.isLancamentoValido())
+		for (Adocao a : this.adocao) {
+			if (a.isAnimalValido() && a.isLancamentoValido())
 				qtdeElementosValidos++;
 		}
 
@@ -147,7 +149,7 @@ public class LancamentoAdocao implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((lancamentoAcaoId == null) ? 0 : lancamentoAcaoId.hashCode());
+		result = prime * result + ((lancamentoId == null) ? 0 : lancamentoId.hashCode());
 		return result;
 	}
 
@@ -159,11 +161,11 @@ public class LancamentoAdocao implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LancamentoAdocao other = (LancamentoAdocao) obj;
-		if (lancamentoAcaoId == null) {
-			if (other.lancamentoAcaoId != null)
+		Lancamento other = (Lancamento) obj;
+		if (lancamentoId == null) {
+			if (other.lancamentoId != null)
 				return false;
-		} else if (!lancamentoAcaoId.equals(other.lancamentoAcaoId))
+		} else if (!lancamentoId.equals(other.lancamentoId))
 			return false;
 		return true;
 	}

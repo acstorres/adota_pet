@@ -1,4 +1,4 @@
-package br.com.ifma.adota.pet.model.adocao;
+package br.com.ifma.adota.pet.model.lancamento;
 
 import java.util.List;
 
@@ -6,12 +6,13 @@ import javax.ejb.Local;
 
 import br.com.ifma.adota.pet.exception.BeanFacadeException;
 import br.com.ifma.adota.pet.infraestrutura.GenericsSessionBeanFacade;
+import br.com.ifma.adota.pet.model.animal.Animal;
 import br.com.ifma.adota.pet.model.cliente.Cliente;
 
 @Local
-public interface LancamentoAdocaoSessionBeanFacadeLocal extends GenericsSessionBeanFacade<LancamentoAdocao, Long> {
+public interface LancamentoSessionBeanFacadeLocal extends GenericsSessionBeanFacade<Lancamento, Integer> {
 
-	public String JNDI = "LancamentoAdocaoSessionBeanFacade!br.com.ifma.adota.pet.model.adocao.LancamentoAdocaoSessionBeanFacadeLocal";
+	public String JNDI = "LancamentoSessionBeanFacade!br.com.ifma.adota.pet.model.lancamento.LancamentoSessionBeanFacadeLocal";
 
 	/**
 	 * @author Daniel Santos
@@ -19,7 +20,7 @@ public interface LancamentoAdocaoSessionBeanFacadeLocal extends GenericsSessionB
 	 * @category extrairLancamentoAdocaoValidos
 	 * @param cliente uma instância de {@link Cliente}
 	 */
-	public LancamentoAdocao extrairLancamentoAdocaoValidos(Cliente cliente, List<Animal> animais) throws BeanFacadeException;
+	public Lancamento extrairLancamentoAdocaoValidos(Cliente cliente, List<Animal> animais) throws BeanFacadeException;
 
 	/**
 	 * @author Daniel Santos
@@ -28,7 +29,7 @@ public interface LancamentoAdocaoSessionBeanFacadeLocal extends GenericsSessionB
 	 * @param lancamentosAdocao uma lista de instâncias de {@link List} instância de
 	 *                          {@link LancamentoAdocao}
 	 */
-	public void processarLancamentosAdocao(List<LancamentoAdocao> lancamentosAdocao) throws BeanFacadeException;
+	public void processarLancamentosAdocao(List<Lancamento> lancamentos) throws BeanFacadeException;
 
 	/**
 	 * @author Daniel Santos
@@ -36,6 +37,6 @@ public interface LancamentoAdocaoSessionBeanFacadeLocal extends GenericsSessionB
 	 * @category processarLancamentosAdocao
 	 * @param lancamentoAdocao uma instância de {@link LancamentoAdocao}
 	 */
-	public void processarLancamentosAdocao(LancamentoAdocao lancamentoAdocao) throws BeanFacadeException;
+	public void processarLancamentosAdocao(Lancamento lancamento) throws BeanFacadeException;
 
 }

@@ -5,93 +5,238 @@
 
 		<div style=" background: #5D5A5A;">
 
-			<image height="200px" width="100%"
+			<image height="180px" width="100%"
 				src="/images/espiral.png" />
+			<div visible="true" id="divFormulario">
 
-			<hbox width="1000px;" style="margin-left: 200px;">
-				<vbox width="350px;">
-
-
-					<label value="Eu sou"
-						style="font-size:26px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;" />
-
-					<radio onClick="@command('pf')"
-					label="Pessoa Física" 
-					style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;"/>
-					<radio  onClick="@command('pj')"
-					label="Pessoa Jurídica" 
-					style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px; font-weight: bold;"/>
-				</vbox>
-
-
-				<vbox style="margin-left: 40px;" id="pf" visible="false">
-
-					<textbox placeholder="Nome*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.nome)" width="500px" maxlength="100"
-						height="27px" />
-
-					<textbox placeholder="CPF*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.cpf)" width="500px" maxlength="100"
-						height="27px" />
-
-
-					<datebox placeholder="Data de nascimento*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.dataNascimento)" width="200px" maxlength="100"
-						height="27px" />
-
-
-					<button label="Enviar"
-						style="margin-top: 5px; margin-left: 420px; padding: 3px;"
-						height="27px" width="80px;" onClick="@command('enviar')">
-					</button>
+				<hbox width="1000px;" height="300px;"
+					style="margin-left: 200px; padding-bottom: 70px;">
 
 
 
-				</vbox>
-				
-				
-				<vbox style="margin-left: 40px;" id="pj" visible="false">
-
-					<textbox placeholder="CNPJ*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.cnpj)" width="500px" maxlength="100"
-						height="27px" />
-
-					<textbox placeholder="Razão Social*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.razaoSocial)" width="500px" maxlength="100"
-						height="27px" />
-					<textbox placeholder="Razão Social*"
-						style="font-size: 16px; font-weight: bold;"
-						value="@bind(vm.cliente.nomeFantasia)" width="500px" maxlength="100"
-						height="27px" />
+					<vbox width="200px;"
+						style="margin-left: 100px; padding-top: 20px;" align="left">
 
 
+						<label value="Eu sou"
+							style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
 
-					<button label="Enviar"
-						style="margin-top: 5px; margin-left: 420px; padding: 3px;"
-						height="27px" width="80px;" onClick="@command('enviar')">
-					</button>
+						<radio onClick="@command('pf')"
+							checked="@bind(vm.pf)" label="Pessoa Física"
+							style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px;" />
+						<radio onClick="@command('pj')"
+							checked="@bind(vm.pj)" label="Pessoa Jurídica"
+							style="font-size:20px; color: #333333 font-family: Futura Book !important; padding-top: 15px;" />
+					</vbox>
+
+					<!-- PESSOAIS -->
+					<div id="divPf" visible="false">
 
 
 
-				</vbox>
+						<vbox style="margin-left: 100px;"
+							align="right">
 
-			</hbox>
+							<label value="Sobre você..."
+								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
+
+
+							<datebox placeholder="Data de nascimento*"
+								style="font-size: 16px; margin-bottom: 8px;"
+								value="@bind(vm.cliente.dataNascimento)" width="200px"
+								maxlength="100" height="27px" />
+							<textbox placeholder="CPF*"
+								style="font-size: 16px;" value="@bind(vm.cliente.cpf)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Nome*"
+								style="font-size: 16px;" value="@bind(vm.cliente.nome)"
+								width="300px" maxlength="100" height="27px" />
+
+
+							<button label="Próximo"
+								style="margin-top: 5px; padding: 3px;" height="27px"
+								width="80px;" onClick="@command('proximoPessoal')">
+							</button>
+
+
+						</vbox>
+					</div>
+
+					<div id="divPj" visible="false">
+
+
+
+						<vbox style="margin-left: 100px;"
+							align="right">
+
+							<label value="Sobre você..."
+								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
+
+							<textbox placeholder="CNPJ*"
+								style="font-size: 16px;" value="@bind(vm.cliente.cnpj)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Razão Social*"
+								style="font-size: 16px;" value="@bind(vm.cliente.razaoSocial)"
+								width="300px" maxlength="100" height="27px" />
+							<textbox placeholder="Nome Fantasia*"
+								style="font-size: 16px;" value="@bind(vm.cliente.nomeFantasia)" />
+							<button label="Próximo"
+								style="margin-top: 5px; padding: 3px;" height="27px"
+								width="80px;" onClick="@command('proximoPessoal')">
+							</button>
+
+
+						</vbox>
+					</div>
+
+					<!-- ENDRECO -->
+
+
+					<div id="divEndereco" visible="false">
+
+
+
+						<vbox style="margin-left: 100px;"
+							align="right">
+
+							<label value="Seu endereço..."
+								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
+
+
+
+							<textbox
+								placeholder="Rua, N°, Apartamento, Bloco, etc.."
+								style="font-size: 16px;" value="@bind(vm.endereco.descricao)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Bairro*"
+								style="font-size: 16px;" value="@bind(vm.endereco.bairro)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Cidade*"
+								style="font-size: 16px;" value="@bind(vm.endereco.cidade)"
+								width="300px" maxlength="100" height="27px" />
+
+
+							<div>
+								<button label="Anterior"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('anteriorEndereco')">
+								</button>
+								<button label="Próximo"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('proximoEndereco')">
+								</button>
+
+							</div>
+
+						</vbox>
+					</div>
+
+					<!-- CONTATO -->
+
+
+					<div id="divContato" visible="false">
+
+
+
+						<vbox style="margin-left: 100px;"
+							align="right">
+
+							<label value="Seus contatos..."
+								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
+
+
+
+							<textbox placeholder="Telefone"
+								style="font-size: 16px;" value="@bind(vm.cliente.telefone)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Email"
+								style="font-size: 16px;" value="@bind(vm.cliente.email)"
+								width="300px" maxlength="100" height="27px" />
+
+							<div>
+
+								<button label="Anterior"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('anteriorContato')">
+								</button>
+
+								<button label="Próximo"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('proximoContato')">
+								</button>
+
+							</div>
+
+						</vbox>
+					</div>
+
+
+					<!-- LOGIN -->
+
+
+					<div id="divLogin" visible="false">
+
+
+
+						<vbox style="margin-left: 100px;"
+							align="right">
+
+							<label value="E o login..."
+								style="font-size:26px; color: #333333 font-family: Futura Book !important;" />
+
+							<textbox placeholder="Login*"
+								style="font-size: 16px;" value="@bind(vm.usuario.login)"
+								width="300px" maxlength="100" height="27px" />
+
+							<textbox placeholder="Senha*"
+								type="password" style="font-size: 16px;"
+								value="@bind(vm.usuario.senha)" width="300px" maxlength="100"
+								height="27px" />
+
+
+							<div>
+								<button label="Anterior"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('anteriorLogin')">
+								</button>
+
+								<button label="Criar conta"
+									style="margin-top: 5px; padding: 3px;" height="27px"
+									width="80px;" onClick="@command('proximoLogin')">
+								</button>
+
+							</div>
+
+
+						</vbox>
+					</div>
+
+
+				</hbox>
+			</div>
+
+			<div id="divDoador" visible="false" align="center"
+				height="300px;">
+
+				<button label="Quero ser doador" class="btespecial"
+					height="110px" width="400px;" onClick="@command('abrirSistema', doador=true)">
+				</button>
+				<space/>
+				<button label="Quero apenas adotar" class="btespecial"
+					height="110px" width="400px;" onClick="@command('abrirSistema', doador=false)">
+				</button>
+
+
+			</div>
 		</div>
 
-		<div align="center" style="background: #fff;" height="50px;">
-			<label style="font-size:10px; color: #005551;"
-				value="2019© Copyright" />
-			<toolbarbutton
-				style="font-size:12px; color:#005551; font-family: Futura Light !important; padding-top: 15px;"
-				label="Sistemas de Informação - Instituto Federal do Maranhão"
-				onClick='Executions.getCurrent().sendRedirect("https://portal.ifma.edu.br/inicio/")' />
-		</div>
+
+
 
 	</div>
-
 </zk>

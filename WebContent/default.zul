@@ -140,14 +140,14 @@
 			</hbox>
 		</div>
 
-		<div align="center" style="background: #fff;" height="50px;">
+	<!-- 	<div align="center" style="background: #fff;" height="50px;">
 			<label style="font-size:10px; color: #005551;"
 				value="2019© Copyright" />
-			<toolbarbutton
+			<toolbarbutton target="blank"
 				style="font-size:12px; color:#005551; font-family: Futura Light !important; padding-top: 15px;"
 				label="Sistemas de Informação - Instituto Federal do Maranhão"
 				onClick='Executions.getCurrent().sendRedirect("https://portal.ifma.edu.br/inicio/")' />
-		</div>
+		</div> -->
 
 
 

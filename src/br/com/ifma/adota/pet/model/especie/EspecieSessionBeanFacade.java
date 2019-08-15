@@ -13,8 +13,6 @@ import javax.persistence.Query;
 @Stateless
 public class EspecieSessionBeanFacade implements EspecieSessionBeanFacadeLocal {
 	
-	public static final String NAME = "adota_pet_EspecieSessionBeanFacade";
-	
 	@PersistenceContext(unitName = "adota_pet")
 	public EntityManager manager;
 
