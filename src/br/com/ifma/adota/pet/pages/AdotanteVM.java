@@ -91,13 +91,16 @@ public class AdotanteVM {
 	public void irPara(@BindingParam("pagina") String pagina) {
 
 		switch (pagina) {
-
-		case "adotar":
+		case "adocao":
 			conteudo = "adocao.zul";
 			break;
-		case "inicio":
-
+		case "inicia":
 			conteudo = "default.zul";
+			break;
+		case "muralPets":
+			conteudo = "muralPets.zul";
+			break;
+
 		default:
 			conteudo = "default.zul";
 			break;

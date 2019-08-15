@@ -8,7 +8,7 @@
 	<custom-attributes org.zkoss.zul.image.preload="true" />
 
 	<borderlayout style="padding-top: 0px" hflex="1" vflex="1"
-		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.AdotanteVM')">
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.DoadorVM')">
 
 		<north vflex="min" border="none"
 			style="background-color: #005551;">
@@ -31,17 +31,35 @@
 									</div>
 
 									<menubar autodrop="true"
-										style="margin-top:35px; margin-left: 180px; margin-right: 350px; padding-top: 20px; font-family: Futura Light;">
+										style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
 
 										<menuitem label="Início"
 											onClick="@command('irPara', pagina='inicio')" />
-
 										<menuitem label="Adotar"
-											onClick="@command('irPara', pagina='adotar')" />
-
-										<menuitem label="teste"
-											onClick="@command('irPara', pagina='teste')">
-										</menuitem>
+											onClick="@command('irPara', pagina='adocao')" />
+										<menuitem label="Meus Pets"
+											onClick="@command('irPara', pagina='muralPets')" />
+										<menu iconSclass="fas fa-cog">
+											<menupopup>
+												<menuitem
+													label="Editar conta" onClick="@command('')" />
+												<menuitem
+													label="Excluir conta" onClick="@command('excluirConta')" />
+											</menupopup>
+											<!-- 
+												<menu label="Meus Pets">
+												<menupopup>
+												<menuitem label="Doados"
+												style="font-weight: bold;"
+												onClick="@command('irPara', pagina='teste')" />
+												<menuitem
+												style="font-weight: bold;" label="Adotados"
+												onClick="@command('irPara', pagina='teste')" />
+												<menuitem
+												style="font-weight: bold;" label="Para adoção"
+												onClick="@command('irPara', pagina='teste')" />
+												</menupopup>
+												</menu> -->
 
 									</menubar>
 
@@ -49,7 +67,8 @@
 
 							</vbox>
 							<vbox>
-								<div style="margin-top:60px; margin-left: -100px;">
+								<div
+									style="margin-top:60px; margin-left: -100px;">
 
 									<label
 										value="@load(vm.cliente.nome)"
@@ -67,19 +86,13 @@
 							</vbox>
 
 
-
 						</hbox>
-
-
 
 
 					</div>
 
 
-
-
 				</hlayout>
-
 
 			</div>
 		</north>
@@ -87,6 +100,7 @@
 		<center id="mainContent" autoscroll="true"
 			style="background-color: #00B7B1;">
 			<include src="@load(vm.conteudo)" />
+
 		</center>
 
 		<south border="0">

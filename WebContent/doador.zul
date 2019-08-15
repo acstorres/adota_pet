@@ -41,6 +41,16 @@
 											onClick="@command('irPara', pagina='cadastrarPet')" />
 										<menuitem label="Meus Pets"
 											onClick="@command('irPara', pagina='muralPets')" />
+										<menu iconSclass="fas fa-cog">
+											<menupopup>
+												<menuitem
+													label="Editar conta"
+													onClick="@command('')" />
+												<menuitem
+													label="Excluir conta"
+													onClick="@command('excluirConta')" />
+											</menupopup>
+										</menu>
 										<!-- 
 											<menu label="Meus Pets">
 											<menupopup>
@@ -69,7 +79,6 @@
 										value="@load(vm.cliente.nome)"
 										style="font-size:16px; color: #fff; font-family: Futura Light !important; padding-top:20px;" />
 
-
 									<button label="Sair"
 										style="margin-left: 20px; padding: 3px;" height="27px"
 										width="80px;" onClick="@command('sair')">
@@ -95,6 +104,7 @@
 		<center id="mainContent" autoscroll="true"
 			style="background-color: #00B7B1;">
 			<include src="@load(vm.conteudo)" />
+
 		</center>
 
 		<south border="0">
