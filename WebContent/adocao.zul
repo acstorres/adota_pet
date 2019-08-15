@@ -1,0 +1,32 @@
+<zk>
+
+	<div
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.AdotanteVM')">
+
+		<div style=" background: #5D5A5A;">
+
+			<image height="180px" width="100%"
+				src="/images/espiral.png" />
+			<div>
+
+				<hbox width="1000px;" height="300px;"
+					style="margin-left: 200px; padding-bottom: 70px;">
+
+
+
+					<vbox width="200px;"
+						style="margin-left: 100px; padding-top: 20px;" align="left">
+
+
+					</vbox>
+
+				</hbox>
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+</zk>

@@ -40,7 +40,7 @@ public class IndexVM {
 
 			clienteSessionBeanFacadeLocal = (ClienteSessionBeanFacadeLocal) ic
 					.lookup("java:global/adota_pet/" + ClienteSessionBeanFacadeLocal.JNDI);
-			
+
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -77,17 +77,17 @@ public class IndexVM {
 			} else {
 
 				try {
-					
-				 usuario = usuarioSessionBeanFacadeLocal.findByLogin(login);
-				 System.out.println(usuario.getLogin());
-				
+
+					usuario = usuarioSessionBeanFacadeLocal.findByLogin(login);
+					System.out.println(usuario.getLogin());
+
 				} catch (Exception e) {
 					Clients.showNotification("Usuario e senha inv�lido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
 							3000, true);
 					return;
 				}
 
-				if (usuario == null) {
+				if (usuario == null || usuario.isAtivo() == false) {
 					Clients.showNotification("Usu�rio n�o cadastrado!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
 							3000, true);
 					return;
@@ -96,13 +96,29 @@ public class IndexVM {
 					if (usuario.getSenha().trim().equals(senha.trim())) {
 
 						cliente = clienteSessionBeanFacadeLocal.findByUsuarioId(usuario.getUsuarioId());
-						
-						Sessions.getCurrent().setAttribute("cliente", cliente);
-						Sessions.getCurrent().setAttribute("usuario", usuario);
-						// TODO apagar depois
-						System.out.println(cliente.getNome());
 
-						Executions.sendRedirect("home.zul");
+						if (cliente != null && cliente.isAtivo()) {
+
+
+								if (cliente.isDoador()) {
+
+									Sessions.getCurrent().setAttribute("usuario", usuario);
+									Sessions.getCurrent().setAttribute("cliente", cliente);
+									Executions.sendRedirect("doador.zul");
+								} else {
+
+									Sessions.getCurrent().setAttribute("cliente", cliente);
+									Sessions.getCurrent().setAttribute("usuario", usuario);
+									Executions.sendRedirect("adotante.zul");
+								}
+
+						}else {
+
+							Clients.showNotification("Usu�rio inv�lido!", Clients.NOTIFICATION_TYPE_WARNING, null,
+									null, 3000, true);
+							return;
+						}
+
 					} else {
 
 						Clients.showNotification("Usu�rio e senha n�o correspondem � um usu�rio v�lido!",

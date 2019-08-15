@@ -28,6 +28,7 @@ import br.com.ifma.adota.pet.model.endereco.EnderecoSessionBeanFacadeLocal;
 import br.com.ifma.adota.pet.model.usuario.Usuario;
 import br.com.ifma.adota.pet.model.usuario.UsuarioBuilder;
 import br.com.ifma.adota.pet.model.usuario.UsuarioSessionBeanFacadeLocal;
+import br.com.ifma.adota.pet.util.StringUtil;
 
 public class RegistroVM {
 
@@ -160,6 +161,20 @@ public class RegistroVM {
 		divPf.setVisible(false);
 		divPj.setVisible(false);
 
+		//TODO validar aqui
+		
+		if(cliente.getDataNascimento() == null ) {
+		}
+		if(cliente.getCpf() == null) {
+			
+		}
+		
+		if(cliente.getNome() == null) {
+			
+		}
+		
+		
+		
 		divEndereco.setVisible(true);
 
 		BindUtils.postNotifyChange(null, null, this, "divEndereco");
@@ -246,41 +261,8 @@ public class RegistroVM {
 	@NotifyChange({ "divFormulario", "divDoador" })
 	public void proximoLogin() {
 
-		try {
-
-			if (usuarioSessionBeanFacadeLocal.include(usuario) != null
-					&& enderecoSessionBeanFacadeLocal.include(endereco) != null) {
-				cliente.setEndereco(endereco);
-				cliente.setUsuario(usuario);
-				if (doador) {
-					cliente.setDoador(doador);
-				} else {
-					cliente.setDoador(false);
-				}
-
-				cliente.setAtivo(true);
-				if (clienteSessionBeanFacadeLocal.include(cliente) != null) {
-
-					Clients.showNotification("Conta criada com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null,
-							3000, true);
-					
-					divFormulario.setVisible(false);
-					divDoador.setVisible(true);
-					
-					Sessions.getCurrent().setAttribute("usuario", usuario);
-					Sessions.getCurrent().setAttribute("cliente", cliente);
-
-				}
-			}else {
-
-				Clients.showNotification("Não foi possível criar a conta!",
-						Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000, true);
-				return;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		divFormulario.setVisible(false);
+		divDoador.setVisible(true);
 
 		BindUtils.postNotifyChange(null, null, this, "divFormulario");
 		BindUtils.postNotifyChange(null, null, this, "divDoador");
@@ -288,28 +270,49 @@ public class RegistroVM {
 	}
 
 	@Command
-	public void abrirSistema(@BindingParam("doador") boolean doador) {
+	public void criarConta(@BindingParam("doador") boolean doador) {
 
 		try {
-			if (doador) {
+			this.doador = doador;
+			usuario.setAtivo(true);
 
-				cliente.setDoador(true);
-				Sessions.getCurrent().setAttribute("cliente", cliente);
-				Executions.sendRedirect("doador.zul");
+			if (usuarioSessionBeanFacadeLocal.include(usuario) != null
+					&& enderecoSessionBeanFacadeLocal.include(endereco) != null) {
+				cliente.setEndereco(endereco);
+				cliente.setUsuario(usuario);
 
+				cliente.setAtivo(true);
+				cliente.setDoador(this.doador);
+
+				if (clienteSessionBeanFacadeLocal.include(cliente) != null) {
+
+					Clients.showNotification("Conta criada com sucesso!", Clients.NOTIFICATION_TYPE_INFO, null, null,
+							3000, true);
+
+					if (cliente.isDoador()) {
+						Sessions.getCurrent().setAttribute("usuario", usuario);
+						Sessions.getCurrent().setAttribute("cliente", cliente);
+						Executions.sendRedirect("doador.zul");
+
+					} else {
+						Sessions.getCurrent().setAttribute("usuario", usuario);
+						Sessions.getCurrent().setAttribute("cliente", cliente);
+						Executions.sendRedirect("adotante.zul");
+
+					}
+
+				} else {
+					Clients.showNotification("Erro ao criar conta!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+							3000, true);
+					return;
+
+				}
 			} else {
-				cliente.setDoador(false);
-				Sessions.getCurrent().setAttribute("cliente", cliente);
-				Executions.sendRedirect("adotante.zul");
 
 			}
 
-			// persisistir cliente
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			Clients.showNotification("Erro interno!", Clients.NOTIFICATION_TYPE_WARNING, null, null, 3000, true);
-			return;
 		}
 
 	}
