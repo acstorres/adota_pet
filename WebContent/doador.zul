@@ -17,48 +17,69 @@
 
 					<div
 						style="text-align: right; margin-top:3px;  margin-left:90px; margin-bottom:5px; padding-bottom:3px; ">
-						<div sclass="left">
-							<image height="65px" width="175px"
-								onClick="@command('irPara', pagina='menuInicial')"
-								src="/images/logo.png" />
 
-						</div>
-						<div>
 
-							<menubar autodrop="true"
-								style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
+						<hbox>
+							<vbox>
+								<div>
+									<div sclass="left">
+										<image height="65px"
+											width="175px"
+											onClick="@command('irPara', pagina='menuInicial')"
+											src="/images/logo.png" />
 
-								<menuitem label="Início"
-									onClick="@command('irPara', pagina='inicio')" />
-								<menu label="Cadastro">
-									<menupopup>
-										<menuitem label="teste"
-											onClick="@command('irPara', pagina='teste')" />
-										<menuitem label="tipo de multa"
-											onClick="@command('irPara', pagina='teste')" />
-									</menupopup>
-								</menu>
+									</div>
 
-								<menuitem label="Editar"
-									onClick="@command('irPara', pagina='teste')">
-								</menuitem>
-								
-								
-								<menuitem label="Sair"
-									onClick="@command('sair')">
-								</menuitem>
+									<menubar autodrop="true"
+										style="margin-top:35px; margin-left: 180px; margin-right: 400px; padding-top: 20px; font-family: Futura Light;">
 
-							</menubar>
+										<menuitem label="Início"
+											onClick="@command('irPara', pagina='inicio')" />
+										<menu label="Cadastro">
+											<menupopup>
+												<menuitem label="Gato" style="font-weight: bold;"
+													onClick="@command('irPara', pagina='teste')" />
+												<menuitem style="font-weight: bold;"
+													label="Cachorro"
+													onClick="@command('irPara', pagina='teste')" />
+											</menupopup>
+										</menu>
 
-						</div>
-						
-							<toolbarbutton label="@load(vm.cliente.nome)"
-							style="font-size:12px; color: #fff; font-family: Futura Light !important;" />
-					
+										<menuitem label="Teste"
+											onClick="@command('irPara', pagina='teste')">
+										</menuitem>
+
+									</menubar>
+
+								</div>
+
+							</vbox>
+							<vbox>
+								<div style="margin-top:60px;">
+
+									<label
+										value="@load(vm.cliente.nome)"
+										style="font-size:12px; color: #fff; font-family: Futura Light !important; padding-top:20px;" />
+
+
+									<button label="Sair"
+										style="margin-left: 20px; padding: 3px;" height="27px"
+										width="80px;" onClick="@command('sair')">
+									</button>
+
+								</div>
+
+
+							</vbox>
+
+
+						</hbox>
+
+
 					</div>
-						
-				</hlayout>
 
+
+				</hlayout>
 
 			</div>
 		</north>

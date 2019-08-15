@@ -276,7 +276,8 @@ body {
 }
 
 .z-menubar-horizontal li {
-	margin: 2px 2px !important;
+	margin-left: 15px !important;
+	margin-right: 15px !important;
 }
 
 .z-combobox-button-selected {
@@ -311,7 +312,7 @@ body {
 
 .z-menubar-horizontal li, .z-menupopup, .z-menupopup-shadow .z-menupopup-open
 	{
-	margin: 6px 6px;
+	margin: 2px 2px;
 	float: left !important;
 }
 
