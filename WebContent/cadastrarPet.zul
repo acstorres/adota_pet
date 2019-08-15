@@ -1,0 +1,180 @@
+<zk>
+
+	<div
+		viewModel="@id('vm') @init('br.com.ifma.adota.pet.pages.CadastrarPetVM')">
+
+
+		<div
+			style="background-color: #00B7B1; border-color: #00B7B1; margin-left:200px; padding-top: 0px; margin-top: 0px;">
+			<div
+				style="padding-top: 0px; margin-left: 200px; margin-top: 0px;">
+				<hbox width="100%">
+					<vbox width="700px;"
+						style="margin-top: 30px; margin-left: -250px;">
+
+						<grid>
+							<columns>
+								<column></column>
+								<column></column>
+							</columns>
+							<rows>
+								<row>
+									<div>
+
+										<hlayout>
+
+											<combobox autodrop="true"
+												placeholder="Espécie*" style="font-size:20px;"
+												model="@bind(vm.especies)"
+												onSelect="@command('onSelectEspecie', especieSelecionada=vm.especieSelecionada.especieId)"
+												selectedItem="@bind(vm.especieSelecionada)"
+												buttonVisible="true" width="250px">
+												<template name="model"
+													var="especie">
+													<comboitem
+														label="@load(especie.descricao)" />
+												</template>
+											</combobox>
+										</hlayout>
+									</div>
+
+									<div>
+
+										<hlayout>
+
+											<combobox autodrop="true"
+												placeholder="Raça*" style="font-size:20px;"
+												model="@load(vm.racas)"
+												selectedItem="@bind(vm.racaSelecionada)"
+												buttonVisible="true" width="250px">
+												<template name="model"
+													var="raca">
+													<comboitem
+														label="@load(raca.descricao)" />
+												</template>
+											</combobox>
+										</hlayout>
+									</div>
+
+
+								</row>
+								<row>
+									<div>
+
+										<hlayout>
+
+											<combobox autodrop="true"
+												placeholder="Porte*" style="font-size:20px;"
+												model="@load(vm.portes)"
+												selectedItem="@bind(vm.animal.porte)" buttonVisible="true"
+												width="250px">
+												<template name="model"
+													var="porte">
+													<comboitem
+														label="@load(porte)" />
+												</template>
+											</combobox>
+										</hlayout>
+
+
+									</div>
+									<div>
+										<textbox placeholder="Nome*"
+											style="font-size: 20px;" value="@bind(vm.animal.nome)"
+											width="300px" maxlength="100" height="33px" />
+
+									</div>
+
+								</row>
+								<row>
+									<div>
+										<intbox placeholder="Idade*"
+											style="font-size: 20px;" value="@bind(vm.idade)"
+											width="300px" maxlength="100" height="33px" />
+
+									</div>
+									<div>
+										<textbox placeholder="Cor*"
+											style="font-size: 20px;" value="@bind(vm.animal.cor)"
+											width="300px" maxlength="100" height="33px" />
+
+									</div>
+
+								</row>
+								<row>
+									<div>
+										<textbox rows="2"
+											style="font-size:20px;" placeholder="Sinais"
+											value="@bind(vm.animal.sinais)" width="200px">
+										</textbox>
+									</div>
+									<div>
+										<textbox rows="2"
+											style="font-size:20px;" placeholder="Descricao"
+											value="@bind(vm.animal.descricao)" width="200px">
+										</textbox>
+
+									</div>
+
+								</row>
+								<row>
+									<radio onClick="@command('femea')"
+										checked="@bind(vm.femea)" label="Fêmea"
+										style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+									<radio
+										checked="@bind(vm.animal.castrado)" label="Castrado"
+										style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+
+								</row>
+								<row>
+									<radio onClick="@command('macho')"
+										checked="@bind(vm.macho)" label="Macho"
+										style="font-size:20px; color: #fff; font-family: Futura Book !important; padding-top: 15px;" />
+
+
+									<div>
+										<button label="Salvar Pet"
+										style="margin-right: 0px; padding: 3px;" height="27px"
+										width="80px;" onClick="@command('salvarPet')">
+									</button>
+
+									</div>
+								</row>
+							</rows>
+
+						</grid>
+
+					</vbox>
+					<vbox style="padding-bottom: 20px;">
+						<image height="332px" width="180px"
+							style="margin-top: 0px; margin-left: 100px;"
+							src="/images/gato.png" />
+
+
+					</vbox>
+
+
+				</hbox>
+
+			</div>
+
+
+
+		</div>
+
+
+		<div style="background: #fff;">
+
+			<image height="100px" width="100%" style="margin-top: 0px;"
+				src="/images/maos.png" />
+
+
+
+		</div>
+
+
+	</div>
+
+</zk>

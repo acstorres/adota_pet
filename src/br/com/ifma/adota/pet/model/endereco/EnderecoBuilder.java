@@ -3,7 +3,7 @@ package br.com.ifma.adota.pet.model.endereco;
 public class EnderecoBuilder {
 	private Endereco endereco;
 
-	public Endereco controi() {
+	public Endereco constroi() {
 		return this.endereco;
 	}
 

@@ -32,7 +32,7 @@ public class AdotanteVM {
 			Executions.sendRedirect("index.zul");
 
 		} else {
-			cliente = ClienteBuilder.umNovoCliente().controi();
+			cliente = ClienteBuilder.umNovoCliente().constroi();
 			cliente = (Cliente) Sessions.getCurrent().getAttribute("cliente");
 
 		}

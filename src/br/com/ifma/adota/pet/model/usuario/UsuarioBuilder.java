@@ -9,7 +9,7 @@ import br.com.ifma.adota.pet.model.endereco.EnderecoBuilder;
 public class UsuarioBuilder {
 	private Usuario usuario;
 
-	public Usuario controi() {
+	public Usuario constroi() {
 		return this.usuario;
 	}
 

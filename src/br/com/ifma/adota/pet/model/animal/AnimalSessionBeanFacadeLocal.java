@@ -16,5 +16,6 @@ public interface AnimalSessionBeanFacadeLocal {
 	public void remove(Integer animalId);
 
 	public Collection<Animal> findAll();
+	public Collection<Animal> findByClienteId(Integer clienteId);
 
 }

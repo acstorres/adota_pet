@@ -120,9 +120,9 @@ public class RegistroVM {
 	}
 
 	public void chamaBuilders() {
-		cliente = ClienteBuilder.umNovoCliente().definidoAutomaticamentePelaDataLancamento().controi();
-		endereco = EnderecoBuilder.umNovoEndereco().controi();
-		usuario = UsuarioBuilder.umNovoUsuario().definidoAutomaticamentePelaDataLancamento().controi();
+		cliente = ClienteBuilder.umNovoCliente().definidoAutomaticamentePelaDataLancamento().constroi();
+		endereco = EnderecoBuilder.umNovoEndereco().constroi();
+		usuario = UsuarioBuilder.umNovoUsuario().definidoAutomaticamentePelaDataLancamento().constroi();
 	}
 
 	@Command
@@ -158,23 +158,64 @@ public class RegistroVM {
 	@NotifyChange({ "divEndereco", "divPf", "divPj" })
 	public void proximoPessoal() {
 
-		divPf.setVisible(false);
-		divPj.setVisible(false);
 
 		//TODO validar aqui
-		
-		if(cliente.getDataNascimento() == null ) {
-		}
-		if(cliente.getCpf() == null) {
+		if(pf) {
+			if(cliente.getDataNascimento() == null) {
+				Clients.showNotification("Data de nascimento não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}
+			if(cliente.getCpf() == null || cliente.getCpf().isEmpty()) {
+				Clients.showNotification("Cpf não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}else {
+				if(StringUtil.isCpfValido(cliente.getCpf()) == false) {
+					Clients.showNotification("Cpf inválido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+							3000, true);
+					return;
+				}
+				
+			}
+			
+			if(cliente.getNome() == null || cliente.getNome().isEmpty()) {
+				Clients.showNotification("Nome não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}
+			
+		}else {
+			
+			if(cliente.getCnpj() == null || cliente.getCnpj().isEmpty()) {
+				Clients.showNotification("Cnpj não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}else {
+				if(StringUtil.isCnpjValido(cliente.getCnpj()) == false) {
+					Clients.showNotification("Cnpj inválido!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+							3000, true);
+					return;
+				}
+				
+			}
+			if(cliente.getRazaoSocial() == null || cliente.getRazaoSocial().isEmpty()) {
+				Clients.showNotification("Razão Social não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}
+			
+			if(cliente.getNomeFantasia() == null || cliente.getNomeFantasia().isEmpty()) {
+				Clients.showNotification("Nome Fantasia não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+						3000, true);
+				return;
+			}
 			
 		}
 		
-		if(cliente.getNome() == null) {
-			
-		}
-		
-		
-		
+
+		divPf.setVisible(false);
+		divPj.setVisible(false);
 		divEndereco.setVisible(true);
 
 		BindUtils.postNotifyChange(null, null, this, "divEndereco");
@@ -188,7 +229,6 @@ public class RegistroVM {
 	public void anteriorEndereco() {
 
 		divEndereco.setVisible(false);
-		System.out.println(pf);
 		if (pf) {
 			divPf.setVisible(true);
 		} else {
@@ -205,6 +245,25 @@ public class RegistroVM {
 	@Command
 	@NotifyChange({ "divEndereco", "divContato", "cliente" })
 	public void proximoEndereco() {
+
+		
+		if(endereco.getDescricao() == null || endereco.getDescricao().isEmpty()) {
+			Clients.showNotification("Descricao não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
+		
+		if(endereco.getBairro() == null || endereco.getBairro().isEmpty()) {
+			Clients.showNotification("Bairro não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
+		if(endereco.getCidade() == null || endereco.getCidade().isEmpty()) {
+			Clients.showNotification("Cidade não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
+		
 
 		divEndereco.setVisible(false);
 		divContato.setVisible(true);
@@ -231,6 +290,17 @@ public class RegistroVM {
 	@Command
 	@NotifyChange({ "divLogin", "divContato", "usuario" })
 	public void proximoContato() {
+		
+		
+		if(cliente.getTelefone() == null || cliente.getTelefone().isEmpty()) {
+			Clients.showNotification("Telefone não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
+		if(cliente.getEmail() == null || cliente.getEmail().isEmpty()) {
+		
+			return;
+		}
 
 		divContato.setVisible(false);
 
@@ -260,6 +330,18 @@ public class RegistroVM {
 	@Command
 	@NotifyChange({ "divFormulario", "divDoador" })
 	public void proximoLogin() {
+		
+		if(usuario.getLogin() == null || usuario.getLogin().isEmpty()) {
+			Clients.showNotification("Login não pode ser nulo!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
+		
+		if(usuario.getSenha() == null || usuario.getSenha().isEmpty()) {
+			Clients.showNotification("Senha não pode ser nula!", Clients.NOTIFICATION_TYPE_WARNING, null, null,
+					3000, true);
+			return;
+		}
 
 		divFormulario.setVisible(false);
 		divDoador.setVisible(true);
@@ -275,6 +357,10 @@ public class RegistroVM {
 		try {
 			this.doador = doador;
 			usuario.setAtivo(true);
+			usuario.setLogin(StringUtil.retiraCaracteresEspeciais(usuario.getLogin()));
+			
+			endereco.setBairro(StringUtil.capitalizeEveryWord(endereco.getBairro()));
+			endereco.setCidade(StringUtil.capitalizeEveryWord(endereco.getCidade()));
 
 			if (usuarioSessionBeanFacadeLocal.include(usuario) != null
 					&& enderecoSessionBeanFacadeLocal.include(endereco) != null) {
@@ -283,6 +369,22 @@ public class RegistroVM {
 
 				cliente.setAtivo(true);
 				cliente.setDoador(this.doador);
+				
+				if(pf) {
+					cliente.setNome(StringUtil.capitalizeEveryWord(cliente.getNome()));
+					cliente.setCpf(StringUtil.retiraCaracteresEspeciais(cliente.getCpf()));
+					cliente.setCpf(StringUtil.unaccentAndRemoveBlankSpace(cliente.getCpf()));
+				}else{
+					cliente.setCnpj(StringUtil.retiraCaracteresEspeciais(cliente.getCnpj()));
+					cliente.setCnpj(StringUtil.unaccentAndRemoveBlankSpace(cliente.getCnpj()));
+					cliente.setRazaoSocial(StringUtil.capitalizeEveryWord(cliente.getRazaoSocial()));
+					cliente.setNomeFantasia(StringUtil.capitalizeEveryWord(cliente.getNomeFantasia()));
+					
+					
+				}
+			
+				cliente.setTelefone(StringUtil.retiraCaracteresEspeciais(cliente.getTelefone()));
+				cliente.setTelefone(StringUtil.unaccentAndRemoveBlankSpace(cliente.getTelefone()));
 
 				if (clienteSessionBeanFacadeLocal.include(cliente) != null) {
 
